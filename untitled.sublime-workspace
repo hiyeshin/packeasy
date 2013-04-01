@@ -1,0 +1,387 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"slid",
+				"slides_restaurant"
+			],
+			[
+				"slide",
+				"slides_restaurant"
+			],
+			[
+				"slides",
+				"slides_left_container"
+			],
+			[
+				"font",
+				"font-weight"
+			],
+			[
+				"pa",
+				"padding-left"
+			],
+			[
+				"padding-",
+				"padding-bottom"
+			],
+			[
+				"back",
+				"background"
+			],
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"padding",
+				"padding-right"
+			],
+			[
+				"mar",
+				"margin-left"
+			],
+			[
+				"backgrou",
+				"background-color"
+			],
+			[
+				"materi",
+				"cube_materials"
+			],
+			[
+				"video",
+				"videoTexture"
+			],
+			[
+				"mes",
+				"meshMaterial"
+			],
+			[
+				"mesh",
+				"meshMaterial"
+			],
+			[
+				"me",
+				"meshMaterial"
+			],
+			[
+				"material",
+				"meshMaterial"
+			],
+			[
+				"texture",
+				"videoTexture"
+			],
+			[
+				"picture",
+				"pictureMaterial"
+			],
+			[
+				"inner",
+				"innerWidth"
+			],
+			[
+				"window",
+				"windowHalfX"
+			],
+			[
+				"can",
+				"canvasHeight"
+			],
+			[
+				"windowHa",
+				"windowHalfY"
+			],
+			[
+				"detect",
+				"detectSpecs"
+			],
+			[
+				"Web",
+				"WebGLRenderer"
+			],
+			[
+				"canvas",
+				"canvasHeight"
+			],
+			[
+				"cu",
+				"cubeSize"
+			],
+			[
+				"user",
+				"user_latlng"
+			],
+			[
+				"bg",
+				"bgCam"
+			],
+			[
+				"came",
+				"cameraCube"
+			],
+			[
+				"twitter",
+				"twitterContents"
+			],
+			[
+				"text",
+				"textGroup"
+			],
+			[
+				"tweets",
+				"tweetsAddress"
+			],
+			[
+				"fetc",
+				"fetchTweetsAddress"
+			],
+			[
+				"import",
+				"importTweetsAddress"
+			],
+			[
+				"tweet",
+				"tweetsAddress"
+			],
+			[
+				"setT",
+				"setInterval"
+			],
+			[
+				"lo",
+				"loadTextureCube"
+			],
+			[
+				"inpu",
+				"inputMinutes"
+			],
+			[
+				"s",
+				"sandwich_form"
+			],
+			[
+				"get",
+				"getElementById"
+			],
+			[
+				"marker",
+				"markerLength"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "Packages/Python/Python.sublime-build",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 50.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/Hazel/Desktop/portfolio_website/static/css/lightbox.css",
+		"/Users/Hazel/Desktop/portfolio_website/static/js/lightbox.js",
+		"/Users/Hazel/Desktop/keepoff /src/python/keepoff_osc.py",
+		"/Users/Hazel/Desktop/keepoff /src/python/keepoff.py",
+		"/Users/Hazel/Desktop/button_reading/templates/main.html",
+		"/Users/Hazel/Desktop/button_reading/templates/layout/main.html",
+		"/Users/Hazel/Desktop/button_reading/app.py",
+		"/Users/Hazel/Desktop/website/portfolio_website/app.py",
+		"/Users/Hazel/Desktop/website/portfolio_website/templates/layout/main.html",
+		"/Users/Hazel/Desktop/website/portfolio_website/templates/week4.html",
+		"/Users/Hazel/Desktop/website/portfolio_website/templates/palimpsest.html",
+		"/Users/Hazel/Desktop/website/portfolio_website/templates/rwet.html",
+		"/Users/Hazel/Desktop/website/portfolio_website/static/css/main.css",
+		"/Users/Hazel/Desktop/website/portfolio_website/templates/midterm.html",
+		"/Users/Hazel/Desktop/website/portfolio_website/templates/main.html",
+		"/Users/Hazel/Desktop/website/portfolio_website/templates/week2.html",
+		"/Users/Hazel/Desktop/portfolio_website/templates/rwet.html",
+		"/Users/Hazel/Desktop/portfolio_website/templates/404.html",
+		"/Users/Hazel/Desktop/portfolio/main.html",
+		"/Users/Hazel/Desktop/portfolio/layout/main.html",
+		"/Users/Hazel/Desktop/pop.html",
+		"/Users/Hazel/Desktop/johnschimmel-Heroku-Boilerplate-6cf9685/web.js",
+		"/Users/Hazel/Desktop/jj/static/js/jq.js",
+		"/Users/Hazel/Desktop/jq.js",
+		"/Users/Hazel/Desktop/Project_Website/templates/main.html",
+		"/Users/Hazel/Desktop/Project_Website/static/scripts/application.js",
+		"/Users/Hazel/Desktop/daft_punk/template/layout/main.html",
+		"/Users/Hazel/Desktop/tony.html",
+		"/Users/Hazel/Desktop/Project_Website/test.html",
+		"/Users/Hazel/Desktop/Project_Website/gotham_project.html",
+		"/Users/Hazel/Desktop/Project_Website/static/scripts/Detector.js",
+		"/Users/Hazel/Desktop/Project_Website/statics/scripts/application.js",
+		"/Users/Hazel/Desktop/Project_Website/statics/styles/base.css",
+		"/Users/Hazel/Desktop/Project_Website/index.py",
+		"/Users/Hazel/Desktop/Project_Website/templates/index.html",
+		"/Users/Hazel/Desktop/Project_Website/index.html",
+		"/Users/Hazel/Desktop/Project_Website/base.css",
+		"/Users/Hazel/Desktop/Project_Website/application.js",
+		"/Users/Hazel/Desktop/models.py",
+		"/Users/Hazel/Desktop/app.py",
+		"/Users/Hazel/Desktop/webcamTemplate/scripts/application.js",
+		"/Users/Hazel/Desktop/webcamTemplate/index.html",
+		"/Users/Hazel/Desktop/week9_review/static/js/foursquare.js",
+		"/Users/Hazel/Desktop/week9_review/static/js/geocoder.js",
+		"/Users/Hazel/Desktop/MealandMail/templates/remote_ideas.html",
+		"/Users/Hazel/Desktop/dataset/models.py",
+		"/Users/Hazel/Desktop/dataset/app.py",
+		"/Users/Hazel/Desktop/earth/static/scripts/tweetContents.js",
+		"/Users/Hazel/Desktop/macarons.js",
+		"/Users/Hazel/Desktop/webGL.js",
+		"/Users/Hazel/Desktop/ColladaLoader.js",
+		"/Users/Hazel/Desktop/WebGLBook_examples/Chapter_3/earth-shader.js",
+		"/Users/Hazel/Desktop/WebGLBook_examples/Chapter_3/graphics-earth-shader.html",
+		"/Users/Hazel/Desktop/jspracrice/script.js",
+		"/Users/Hazel/Desktop/jspracrice/index.html",
+		"/Users/Hazel/Desktop/index.html",
+		"/Users/Hazel/Desktop/script.js",
+		"/Users/Hazel/Library/Application Support/Sublime Text 2/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/Hazel/Desktop/earth/static/styles/base.css",
+		"/Users/Hazel/Desktop/earth/templates/index.html",
+		"/Users/Hazel/Desktop/earth/static/scripts/droid_serif_bold.typeface.js",
+		"/Users/Hazel/Desktop/earth/static/scripts/droid_sans_bold.typeface.js",
+		"/Users/Hazel/Desktop/droid_serif_regular.typeface.js",
+		"/Users/Hazel/Desktop/optimer_bold.typeface.js",
+		"/Users/Hazel/Desktop/earth/static/scripts/database.js",
+		"/Users/Hazel/Desktop/earth/static/scripts/application.js",
+		"/Users/Hazel/Desktop/earth/index.py",
+		"/Users/Hazel/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/Hazel/Library/Application Support/Sublime Text 2/Packages/User/JSON.sublime-settings",
+		"/Users/Hazel/Library/Application Support/Sublime Text 2/Packages/User/Distraction Free.sublime-settings",
+		"/Users/Hazel/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/Users/Hazel/Desktop/database.js",
+		"/Users/Hazel/Desktop/googlemap.html",
+		"/Users/Hazel/Desktop/FaceToPin/scripts/AEscript.jsx",
+		"/Users/Hazel/Desktop/FaceOSCSyphon.app/Contents/Resources/data/settings.xml",
+		"/Users/Hazel/Desktop/ioni_face_1/DCIM/100EOS5D/MVI_5510.MOV",
+		"/Users/Hazel/Desktop/droid_sans_regular.typeface.js",
+		"/Users/Hazel/Desktop/application.js",
+		"/Users/Hazel/Desktop/threeAppEngine/static/scripts/application.js",
+		"/Users/Hazel/Desktop/ex1.py"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"h3",
+			"leftWall"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"h5"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 100.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 386.0,
+	"status_bar_visible": true
+}

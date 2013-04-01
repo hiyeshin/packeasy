@@ -5,39 +5,36 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
         <title>{{ title }}</title>
         <meta name="description" content="ITP DWD Example Site using templates">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}"> -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" media="screen, handheld" >
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/enhanced.css') }}" media="screen  and (min-width: 40.5em)">
 
         <!-- Get Font from Google http://www.google.com/webfonts -->
         <link href='http://fonts.googleapis.com/css?family=Peralta' rel='stylesheet' type='text/css'>
+        <script src="{{ url_for('static', filename='js/modernizr.js') }}"></script>
 
         {% block styles %}{% endblock %}
 
     </head>
     <body>
+        <!--[if (lt IE 9)&(!IEMobile)]>
+        <link rel="stylesheet" type="text/css" href="enhanced.css" />
+        <![endif]-->
+
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
         <div class="container">
 
-            <h1 class="pageheader">
-                <a href="/">ITP IDEAS</a>
-            </h1>
-
-            <hr>
-
+            
 
             {% block body %}{% endblock %}
 
 
-            <hr/>
-            <footer>
-                <p><a href="http://itppyweb.herokuapp.com">ITP DWD Fall 2012</a>
-               </p>
-            </footer>
+         
 
         </div> <!-- /container -->
 

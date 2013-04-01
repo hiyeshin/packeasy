@@ -1,38 +1,86 @@
 # -*- coding: utf-8 -*-
 from mongoengine import *
-
 from flask.ext.mongoengine.wtf import model_form
-from datetime import datetime
+from wtforms.fields import * # for our custom signup form
+from flask.ext.mongoengine.wtf.orm import validators
+from flask.ext.mongoengine import *
 
-import logging
+import datetime
+import logging 
+
+######################################
+# below is for user authentification #
+######################################
+
+class User(mongoengine.Document):
+	username = mongoengine.StringField(unique=True, max_length=30, required=True, verbose_name="Pick a Username")
+	email = mongoengine.EmailField(unique=True, required=True, verbose_name="Email Address")
+	password = mongoengine.StringField(default=True,required=True)
+	active = mongoengine.BooleanField(default=True)
+	isAdmin = mongoengine.BooleanField(default=False)
+	timestamp = mongoengine.DateTimeField(default=datetime.datetime.now())
+
+user_form = model_form(User, exclude=['password'])
+
+# Signup Form created from user_form
+class SignupForm(user_form):
+	password = PasswordField('Password', validators=[validators.Required(), validators.EqualTo('confirm', message='Passwords must match')])
+	confirm = PasswordField('Repeat Password')
+
+# Login form will provide a Password field (WTForm form field)
+class LoginForm(user_form):
+	password = PasswordField('Password',validators=[validators.Required()])
+
+########### user login form is over ############
+
+class Content(mongoengine.Document):
+    user = mongoengine.ReferenceField('User', dbref=True) # ^^^ points to User model ^^^
+    title = mongoengine.StringField(max_length="100",required=True)
+    content = mongoengine.StringField(required=True)
+    timestamp = mongoengine.DateTimeField(default=datetime.datetime.now())
+
+    @mongoengine.queryset_manager
+    def objects(doc_cls, queryset):
+    	return queryset.order_by('-timestamp')
+
+# content form
+content_form = model_form(Content)
+
+
+#############################################
+# login info is done ########################
+#############################################
 
 # our demo model from week 5 in class
 class Log(Document):
-	text = StringField()
+	email = StringField()
+	password = StringField()
 	timestamp = DateTimeField(default=datetime.now())
 
-class Comment(EmbeddedDocument):
-	name = StringField()
-	comment = StringField()
-	timestamp = DateTimeField(default=datetime.now())
+
+# class Comment(EmbeddedDocument):
+# 	name = StringField()
+# 	comment = StringField()
+# 	timestamp = DateTimeField(default=datetime.now())
+
 	
-class Idea(Document):
+class Trip(Document):
 
-	creator = StringField(max_length=120, required=True, verbose_name="First name")
-	title = StringField(max_length=120, required=True)
-	slug = StringField()
-	idea = StringField(required=True, verbose_name="What is your idea?")
+	date = StringField(max_length=120, required=True, verbose_name="First name")
+	tripname = StringField(max_length=120, required=True)
+	listname =  StringField(StringField(max_length=30))
+	item = StringField(StringField(max_length=30))
+	quantity = StringField(required=True)
+	reminder = StringField(required = True)
 
 	# Category is a list of Strings
-	categories = ListField(StringField(max_length=30))
+	#categories = ListField(StringField(max_length=30))
 
-	# Comments is a list of Document type 'Comments' defined above
-	comments = ListField( EmbeddedDocumentField(Comment) )
 
 	# Timestamp will record the date and time idea was created.
 	timestamp = DateTimeField(default=datetime.now())
 
 
 # Create a Validation Form from the Idea model
-IdeaForm = model_form(Idea)
+TripForm = model_form(Trip)
 
