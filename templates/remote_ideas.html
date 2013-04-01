@@ -1,0 +1,28 @@
+{% extends "layout/main.html" %}
+
+{% block body %}
+
+<h3>Ideas pulled from <a target="_blank" href="http://itp-ideas-dwd.herokuapp.com/data/ideas">http://itp-ideas-dwd.herokuapp.com/data/ideas</a>.</h3>
+
+<hr>
+
+<div class="row">
+
+	<div class="span8">
+	
+	{% for i in ideas %}
+		<h3>{{ i.title }}</h3>
+		<p>by {{ i.creator }}</p>
+		<p>{{ i.idea }}</p>
+		<hr>
+	{% endfor %}
+	
+	</div>
+
+</div>
+
+{% endblock %}
+
+
+{% block styles %}{% endblock %}
+{% block scripts %}{% endblock %}

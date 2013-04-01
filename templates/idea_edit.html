@@ -1,0 +1,67 @@
+{% from "_form_helpers.html" import render_textarea %}
+{% extends "layout/main.html" %}
+
+{% block body %}
+<div class="row">
+
+	<div class="span6">
+
+		<form method="POST" action="/ideas/{{ idea.slug }}/edit">
+			<legend><h3>Edit Idea</h3></legend>
+
+			{% if form.errors %}
+			    <ul class="errors">
+			        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+			            {% for error in field_errors %}
+			                <li class="alert">{{ form[field_name].label }}: {{ error }}</li>
+			            {% endfor %}
+			        {% endfor %}
+			    </ul>
+			{% endif %}
+
+			{{ form.creator.label(class='myLabelCssClass') }}
+			{{ form.creator(class='myTextboxCssClass') }}
+			
+			<!--
+			<label for="creator">First Name</label>
+			<input type="text" id="creator" name="creator" value="{{ idea.creator }}">
+			-->
+			
+			{{ form.title.label(class='myLabelCssClass') }}
+			{{ form.title(class='myTextboxCssClass') }}
+			
+			<!--
+			<label for="title">Project Title</label>
+			<input type="text" id="title" name="title">
+			-->
+			{{ form.idea.label }}
+			{{ render_textarea(form.idea, cols="50", rows="6") }} {# render_textarea inside _form_helpers.html #}
+			
+
+			
+			<br>
+			<label>Category</label>
+			<span class="help-block">Select as many as you need.</span>
+
+			
+			{# comment - loop through categories and create checkboxes #}
+			{% for c in categories|sort %}
+			<label class="checkbox">
+			<input type="checkbox" name="categories" value="{{ c|replace(" ","_") }}" {% if c|replace(" ","_") in form.categories.data %}checked=checked{% endif %} > {{ c|title }}
+			</label>
+			{% endfor %}
+
+
+			<button type="submit" class="btn btn-primary">Update Idea</button>
+		</form>
+	</div>
+
+	
+
+</div>
+
+{% endblock %}
+
+
+{% block styles %}{% endblock %}
+{% block scripts %}{% endblock %}

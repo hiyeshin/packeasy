@@ -1,0 +1,47 @@
+{% extends "layout/main.html" %}
+
+
+{% block body %}
+
+<div class="row">
+
+	<!-- left column -->
+	<div class="span6">
+		<h3>Ideas: {{ current_category.get('name')|title }}</h3>
+		
+		{% for idea in ideas %}
+			<h4><a href="/ideas/{{ idea.slug }}">{{ idea.title }}</a></h4>
+			<p>by {{ idea.creator }}</p>
+			<p>
+			{% for cat in idea.categories %}
+				<span class="label label-inverse"><a href="/category/{{ cat}}">{{ cat|replace("_"," ")}}</a></span>
+			{% endfor %}
+			<hr/>
+		{% endfor %}
+		
+	</div>
+
+	<div class="span6">
+		<h3>Categories</h3>
+		<ul>
+		{% for cat in categories %}
+		<li><a href="/category/{{ cat|replace(" ","_") }}">{{ cat|title }}</a></li>
+		{% endfor %}
+		</ul>
+
+		<br><br>
+
+		<a href="/" class="btn btn-large btn-info">Add Your Idea</a>
+	</div>
+
+	
+
+	
+
+</div>
+
+{% endblock %}
+
+
+{% block styles %}{% endblock %}
+{% block scripts %}{% endblock %}
