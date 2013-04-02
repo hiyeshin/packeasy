@@ -5,7 +5,7 @@ from wtforms.fields import * # for our custom signup form
 from flask.ext.mongoengine.wtf.orm import validators
 from flask.ext.mongoengine import *
 
-import datetime
+from datetime import datetime
 import logging 
 
 ######################################
@@ -18,7 +18,7 @@ class User(mongoengine.Document):
 	password = mongoengine.StringField(default=True,required=True)
 	active = mongoengine.BooleanField(default=True)
 	isAdmin = mongoengine.BooleanField(default=False)
-	timestamp = mongoengine.DateTimeField(default=datetime.datetime.now())
+	timestamp = mongoengine.DateTimeField(default=datetime.now())
 
 user_form = model_form(User, exclude=['password'])
 
@@ -37,7 +37,7 @@ class Content(mongoengine.Document):
     user = mongoengine.ReferenceField('User', dbref=True) # ^^^ points to User model ^^^
     title = mongoengine.StringField(max_length="100",required=True)
     content = mongoengine.StringField(required=True)
-    timestamp = mongoengine.DateTimeField(default=datetime.datetime.now())
+    timestamp = mongoengine.DateTimeField(default=datetime.now())
 
     @mongoengine.queryset_manager
     def objects(doc_cls, queryset):
@@ -52,10 +52,10 @@ content_form = model_form(Content)
 #############################################
 
 # our demo model from week 5 in class
-class Log(Document):
-	email = StringField()
-	password = StringField()
-	timestamp = DateTimeField(default=datetime.now())
+# class Log(Document):
+# 	email = StringField()
+# 	password = StringField()
+# 	timestamp = DateTimeField(default=datetime.now())
 
 
 # class Comment(EmbeddedDocument):

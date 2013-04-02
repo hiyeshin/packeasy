@@ -7,6 +7,7 @@ from flask import Flask, session, request, url_for, escape, render_template, jso
 
 # import all of mongoengine
 from mongoengine import *
+
 import models
 
 from flask.ext.mongoengine import mongoengine
@@ -111,6 +112,7 @@ def user(username):
 
 	# get content that is linked to user, 
 	user_content = models.Content.objects(user=user)
+	trip_form = models.TripForm(request.form)
 
 	# prepare the template data dictionary
 	templateData = {
@@ -121,7 +123,7 @@ def user(username):
 	}
 
 
-	if request.method == "POST" && trip_form.validate():
+	if request.method == "POST" and trip_form.validate():
 		trip = models.Trip()
 		trip.date = request.form.get('date','anonymous')
 		trip.tripname = request.form.get('tripname','name your trip')
@@ -137,7 +139,7 @@ def user(username):
 
 	else:
 		templateData = {
-			'trips': models.Idea.objects()
+			'trips': models.Idea.objects(),
 			'form' : trip_form
 		}
 
