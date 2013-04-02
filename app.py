@@ -4,6 +4,7 @@ import re
 from unidecode import unidecode
 
 from flask import Flask, session, request, url_for, escape, render_template, json, jsonify, flash, redirect, abort
+# session is just a dictionary and flask converts it to cookie
 
 # import all of mongoengine
 from mongoengine import *
@@ -28,24 +29,19 @@ from flaskext.bcrypt import Bcrypt
 #custom user library - maps User object to User model
 from libs.user import *
 
-#################################################################
-############ importing is over and now it's flask code ##########
-#################################################################
+
 
 app = Flask(__name__)   # create our flask app
 app.config['CSRF_ENABLED'] = False
+app.secret_key = os.environ.get('SECRET_KEY')
 
-# --------- Database Connection ---------
-# MongoDB connection to MongoLab's database
-connect('mydata', host=os.environ.get('SECRET_KEY'))
 flask_bcrypt = Bcrypt(app)
 
-#mongolab connection
 # uses .env file to get connection string
 # using a remote db get connection string from heroku config
 # 	using a local mongodb put this in .env
 #   MONGOLAB_URI=mongodb://localhost:27017/dwdfall2012
-mongoengine.connect('userdemo', host=os.environ.get('MONGOLAB_URI'))
+mongoengine.connect('mydata', host=os.environ.get('MONGOLAB_URI'))
 
 # Login management defined
 # reference http://packages.python.org/Flask-Login/#configuring-your-application
@@ -64,6 +60,7 @@ def load_user(id):
 	if id is None:
 		redirect('/login')
 
+	# below is from the library not models module	
 	user = User()
 	user.get_by_id(id)
 	if user.is_active():
@@ -98,10 +95,9 @@ def index():
 # --------- Routes ----------
 
 # this is our main user page
-@app.route('/users/<username>', method = ['GET', 'POST'])
+@app.route('/users/<username>') # display all the post. we may not need it
 def user(username):
 
-	# Does requested username exists, 404 if not
 	try:
 		user = models.User.objects.get(username=username)
 
@@ -112,7 +108,7 @@ def user(username):
 
 	# get content that is linked to user, 
 	user_content = models.Content.objects(user=user)
-	trip_form = models.TripForm(request.form)
+	#trip_form = models.TripForm(request.form)
 
 	# prepare the template data dictionary
 	templateData = {
@@ -122,28 +118,23 @@ def user(username):
 		'users' : models.User.objects()
 	}
 
+	return render_template("home.html", **templateData)
 
-	if request.method == "POST" and trip_form.validate():
-		trip = models.Trip()
-		trip.date = request.form.get('date','anonymous')
-		trip.tripname = request.form.get('tripname','name your trip')
-		trip.slug = slugify(trip.tripname + " " + trip.listname)
-		trip.listname = request.form.get('listname','name your list')
-		trip.item = request.form.get('item','shampoo')
-		trip.quantity = request.form.get('quantity','3')
-		trip.reminder = request.form.get('reminder','on')
+	# if request.method == "POST" and trip_form.validate():
+	# 	trip = models.Trip()
+	# 	trip.date = request.form.get('date','anonymous')
+	# 	trip.tripname = request.form.get('tripname','name your trip')
+	# 	trip.slug = slugify(trip.tripname + " " + trip.listname)
+	# 	trip.listname = request.form.get('listname','name your list')
+	# 	trip.item = request.form.get('item','shampoo')
+	# 	trip.quantity = request.form.get('quantity','3')
+	# 	trip.reminder = request.form.get('reminder','on')
 
-		trip.save()
+	# 	trip.save()
 
-		return redirect('/%s' % idea.slug)
+		# return redirect('/%s' % idea.slug)
 
-	else:
-		templateData = {
-			'trips': models.Idea.objects(),
-			'form' : trip_form
-		}
-
-		return render_template("home.html", **templateData)
+	
 
 
 

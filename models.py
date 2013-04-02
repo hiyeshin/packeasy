@@ -12,6 +12,7 @@ import logging
 # below is for user authentification #
 ######################################
 
+# below class is hash,
 class User(mongoengine.Document):
 	username = mongoengine.StringField(unique=True, max_length=30, required=True, verbose_name="Pick a Username")
 	email = mongoengine.EmailField(unique=True, required=True, verbose_name="Email Address")
@@ -28,6 +29,7 @@ class SignupForm(user_form):
 	confirm = PasswordField('Repeat Password')
 
 # Login form will provide a Password field (WTForm form field)
+# because User.password is
 class LoginForm(user_form):
 	password = PasswordField('Password',validators=[validators.Required()])
 
@@ -83,4 +85,3 @@ class Trip(Document):
 
 # Create a Validation Form from the Idea model
 TripForm = model_form(Trip)
-

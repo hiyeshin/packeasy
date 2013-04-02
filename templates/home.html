@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+	<head>
+		<title>Packeasy</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css" media="screen, handheld" />
+		<link rel="stylesheet" type="text/css" href="css/enhanced.css" media="screen  and (min-width: 40.5em)" />
+
+		<!--[if (lt IE 9)&(!IEMobile)]>
+		<link rel="stylesheet" type="text/css" href="enhanced.css" />
+		<![endif]-->
+		<script type="text/javascript" src="js/modernizr.js"></script>
+
+		<script type="text/javascript">
+			function ChangeColor(tableRow, highLight) {
+				if (highLight) {
+					tableRow.style.backgroundColor = '#dcfac9';
+				} else {
+					tableRow.style.backgroundColor = 'white';
+				}
+			}
+
+			function DoNav(theUrl) {
+				document.location.href = theUrl;
+			}
+		</script>
+
+	</head>
+
+	<body id="page">
+		<!-- <header role="banner">
+		<div>
+		<h1 class="logo"><a href="home.html"><img src="images/packeasy.png" alt="Packeasy" /></a></h1>
+		<h1 class="title">Packeasy</h1>
+		</div>
+		</header> -->
+		<!--end .header-->
+		
+		<div class="header">
+        <!--<a class="logo" href="home.html"><img src="images/packeasy.png" alt="Packeasy" /></a>-->
+			<a href="home.html"><h1>Packeasy</h1></a>
+		</div><!--header-->
+
+		<div class="main">
+
+			<div class="create_trip">
+				<a href="create_trip.html">Create Your Trip</a>
+            <!--<button type="button">Create Your Trip</button> -->
+			</div>
+
+			<div class="trip_list">
+				
+				<table border="1" cellpadding="0" cellspacing="0">
+
+					<caption>
+						My Trips
+					</caption>
+
+					<tr onmouseover="ChangeColor(this, true);"
+					onmouseout="ChangeColor(this, false);"
+					onclick="DoNav('create_trip.html');">
+						<td>Date</td>
+						<td>Location</td>
+						<td>Lists</td>
+					</tr>
+					<tr onmouseover="ChangeColor(this, true);"
+					onmouseout="ChangeColor(this, false);"
+					onclick="DoNav('http://www.nyu.edu/');">
+						<td>Date</td>
+						<td>Location</td>
+						<td>Lists</td>
+					</tr>
+					<tr onmouseover="ChangeColor(this, true);"
+					onmouseout="ChangeColor(this, false);"
+					onclick="DoNav('http://www.nyu.edu/');">
+						<td>Date</td>
+						<td>Location</td>
+						<td>Lists</td>
+					</tr>
+					<tr onmouseover="ChangeColor(this, true);"
+					onmouseout="ChangeColor(this, false);"
+					onclick="DoNav('http://www.nyu.edu/');">
+						<td>Date</td>
+						<td>Location</td>
+						<td>Lists</td>
+					</tr>
+					<tr onmouseover="ChangeColor(this, true);"
+					onmouseout="ChangeColor(this, false);"
+					onclick="DoNav('http://www.nyu.edu/');">
+						<td>Date</td>
+						<td>Location</td>
+						<td>Lists</td>
+					</tr>
+				</table>
+
+			</div>
+		</div><!--page-->
+
+	</body>
+
+</html>
