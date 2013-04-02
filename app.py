@@ -29,16 +29,14 @@ from flaskext.bcrypt import Bcrypt
 #custom user library - maps User object to User model
 from libs.user import *
 
-
-
 app = Flask(__name__)   # create our flask app
 app.config['CSRF_ENABLED'] = False
 app.secret_key = os.environ.get('SECRET_KEY')
 
 flask_bcrypt = Bcrypt(app)
 
-# uses .env file to get connection string
-# using a remote db get connection string from heroku config
+#   uses .env file to get connection string
+#   using a remote db get connection string from heroku config
 # 	using a local mongodb put this in .env
 #   MONGOLAB_URI=mongodb://localhost:27017/dwdfall2012
 mongoengine.connect('mydata', host=os.environ.get('MONGOLAB_URI'))
@@ -73,9 +71,11 @@ login_manager.setup_app(app)
 
 
 
-@app.route('/')
+@app.route('/') # this should be equal to login page
 def index():
 	# get requested user's content
+	# then we don't need contents 
+	# but trip info
 	user_content = models.Content.objects
 
 	# prepare the template data dictionary
@@ -231,225 +231,116 @@ def login():
 		return render_template('/auth/login.html', **templateData)
 
 
-# # Display all ideas for a specific category
-# @app.route("/category/<cat_name>")
-# def by_category(cat_name):
+@app.route('/create', methods=['GET','POST'])
+@login_required
+def admin_main():
 
-# 	# try and get ideas where cat_name is inside the categories list
-# 	try:
-# 		ideas = models.Idea.objects(categories=cat_name)
+	contentForm = models.content_form(request.form)
 
-# 	# not found, abort w/ 404 page
-# 	except:
-# 		abort(404)
-
-# 	# prepare data for template
-# 	templateData = {
-# 		'current_category' : {
-# 			'slug' : cat_name,
-# 			'name' : cat_name.replace('_',' ')
-# 		},
-# 		'ideas' : ideas,
-# 		'categories' : categories
-# 	}
-
-# 	# render and return template
-# 	return render_template('category_listing.html', **templateData)
-
-
-# @app.route("/ideas/<idea_slug>")
-# def idea_display(idea_slug):
-
-# 	# get idea by idea_slug
-# 	try:
-# 		idea = models.Idea.objects.get(slug=idea_slug)
-# 	except:
-# 		abort(404)
-
-# 	# prepare template data
-# 	templateData = {
-# 		'idea' : idea
-# 	}
-
-# 	# render and return the template
-# 	return render_template('idea_entry.html', **templateData)
-
-# @app.route("/ideas/<idea_slug>/edit", methods=['GET','POST'])
-# def idea_edit(idea_slug):
-
-	
-# 	# try and get the Idea from the database / 404 if not found
-# 	try:
-# 		idea = models.Idea.objects.get(slug=idea_slug)
+	if request.method=="POST" and contentForm.validate():
+		app.logger.debug(request.form)
 		
-# 		# get Idea form from models.py
-# 		# if http post, populate with user submitted form data
-# 		# else, populate the form with the database record
-# 		idea_form = models.IdeaForm(request.form, obj=idea)	
-# 	except:
-# 		abort(404)
+		newContent = models.Content()
+		newContent.title = request.form.get('title')
+		newContent.content = request.form.get('content')
 
-# 	# was post received and was the form valid?
-# 	if request.method == "POST" and idea_form.validate():
-	
-# 		# get form data - update a few fields
-# 		# note we're skipping the update of slug (incase anyone has previously bookmarked)
-# 		idea.creator = request.form.get('creator','anonymous')
-# 		idea.title = request.form.get('title','no title')
-# 		idea.idea = request.form.get('idea','')
-# 		idea.categories = request.form.getlist('categories')
+		#link to current user
+		newContent.user = current_user.get()
 
-# 		idea.save() # save changes
+		try:
+			newContent.save()
 
-# 		return redirect('/ideas/%s/edit' % idea.slug)
-
-# 	else:
-
-# 		# for form management, checkboxes are weird (in wtforms)
-# 		# prepare checklist items for form
-# 		# you'll need to take the form checkboxes submitted
-# 		# and idea_form.categories list needs to be populated.
-# 		if request.method=="POST" and request.form.getlist('categories'):
-# 			for c in request.form.getlist('categories'):
-# 				idea_form.categories.append_entry(c)
-
-# 		templateData = {
-# 			'categories' : categories,
-# 			'form' : idea_form,
-# 			'idea' : idea
-# 		}
-
-# 		return render_template("idea_edit.html", **templateData)
-
-
-# @app.route("/ideas/<idea_id>/comment", methods=['POST'])
-# def idea_comment(idea_id):
-
-# 	name = request.form.get('name')
-# 	comment = request.form.get('comment')
-
-# 	if name == '' or comment == '':
-# 		# no name or comment, return to page
-# 		return redirect(request.referrer)
-
-
-# 	#get the idea by id
-# 	try:
-# 		idea = models.Idea.objects.get(id=idea_id)
-# 	except:
-# 		# error, return to where you came from
-# 		return redirect(request.referrer)
-
-
-# 	# create comment
-# 	comment = models.Comment()
-# 	comment.name = request.form.get('name')
-# 	comment.comment = request.form.get('comment')
-	
-# 	# append comment to idea
-# 	idea.comments.append(comment)
-
-# 	# save it
-# 	idea.save()
-
-# 	return redirect('/ideas/%s' % idea.slug)
-
-
-# @app.route('/data/ideas')
-# def data_ideas():
-# 	ideas = models.Idea.objects().order_by('+timestamp').limit(10)
-
-# 	if ideas:
-# 		public_ideas = []
-
-# 		#prep data for json
-# 		for i in ideas:
+		except:
+			e = sys.exc_info()
+			app.logger.error(e)
 			
-# 			tmpIdea = {
-# 				'creator' : i.creator,
-# 				'title' : i.title,
-# 				'idea' : i.idea,
-# 				'timestamp' : str( i.timestamp )
-# 			}
+		return redirect('/create')
 
-# 			# comments / our embedded documents
-
-# 			tmpIdea['comments'] = [] # list - will hold all comment dictionaries
-			
-# 			# loop through idea comments
-# 			for c in i.comments:
-# 				comment_dict = {
-# 					'name' : c.name,
-# 					'comment' : c.comment,
-# 					'timestamp' : str( c.timestamp )
-# 				}
-
-# 				# append comment_dict to ['comments']
-# 				tmpIdea['comments'].append(comment_dict)
-
-# 			public_ideas.append( tmpIdea )
-
-# 		# prepare dictionary for JSON return
-# 		data = {
-# 			'status' : 'OK',
-# 			'ideas' : public_ideas
-# 		}
-
-# 		# jsonify (imported from Flask above)
-# 		# will convert 'data' dictionary and 
-# 		return jsonify(data)
-
-# 	else:
-# 		error = {
-# 			'status' : 'error',
-# 			'msg' : 'unable to retrieve ideas'
-# 		}
-# 		return jsonify(error)
-
-# @app.route('/getideas')
-# def get_remote_ideas():
-
-# 	# ideas available via json
-# 	ideas_url = "http://itp-ideas-dwd.herokuapp.com/data/ideas"
-
-# 	# make a GET request to the url
-# 	idea_request = requests.get(ideas_url)
-
-# 	# log out what we got
-# 	app.logger.info(idea_request.json)
-
-# 	# requests will automatically convert json for us.
-# 	# .json will convert incoming json to Python dictionary for us
-# 	ideas_data = idea_request.json
-
-# 	# alternative way
-# 	# ideas_data = json.loads( idea_request.text )
-
-# 	# the returned json looks like
-# 	# {
-# 	# 	'status' : 'OK',
-# 	# 	'ideas' : [
-# 	# 		{
-# 	# 		timestamp: "2012-10-02 09:16:54.086000",
-# 	# 		title: "Immortality",
-# 	# 		idea: "Immortality is the ability to live forever, or put another way, it is an immunity from death. It is unknown whether human physical (material) immortality is an achievable condition.",
-# 	# 		comments: [ ],
-# 	# 		creator: "John"
-# 	# 		},
-# 	# 		...
-# 	# 	]
-# 	# }
-
-# 	if ideas_data.get('status') == "OK":
-# 		templateData = {
-# 			'ideas' : ideas_data.get('ideas') # get the ideas from the returned json
-# 		}
-
-# 		return render_template('remote_ideas.html', **templateData)
-
+	else:
+		templateData = {
+			'allContent' : models.Content.objects(user=current_user.id),
+			'current_user' : current_user,
+			'form' : contentForm,
+			'formType' : 'New'
+		}
 	
-# 	else:
-# 		return "uhoh something went wrong - status = %s" % ideas_data.get('status')
+
+	return render_template('create.html', **templateData)
+		
+@app.route('/admin/<content_id>', methods=['GET','POST'])
+@login_required
+def admin_edit_post(content_id):
+
+	# get the content requested
+	contentData = models.Content.objects.get(id=content_id)
+
+	# if contentData exists AND is owned by current_user then continue
+	if contentData and contentData.user.id == current_user.id:
+
+		# create the content form, populate with contentData
+		contentForm = models.content_form(request.form, obj=contentData)
+
+		if request.method=="POST" and contentForm.validate():
+			app.logger.debug(request.form)
+			
+			contentData.title = request.form.get('title')
+			contentData.content = request.form.get('content')
+
+			
+			try:
+				contentData.save()
+
+			except:
+				e = sys.exc_info()
+				app.logger.error(e)
+			
+			flash("Post was updated successfully.")
+			return redirect('/admin/%s' % contentData.id)
+
+		else:
+			templateData = {
+				'allContent' : models.Content.objects(user=current_user.id),
+				'current_user' : current_user,
+				'form' : contentForm,
+				'formType' : 'Update'
+			}
+		
+		return render_template('admin.html', **templateData)
+
+	# current user does not own requested content
+	elif contentData.user.id != current_user.id:
+ 
+		flash("Log in to edit this content.","login")
+		return redirect("/login")
+	else:
+
+		abort(404)
+	
+
+@app.route("/reauth", methods=["GET", "POST"])
+@login_required
+def reauth():
+    if request.method == "POST":
+        confirm_login()
+        flash(u"Reauthenticated.")
+        return redirect(request.args.get("next") or url_for("index"))
+    
+    templateData = {}
+    return render_template("/auth/reauth.html", **templateData)
+
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    flash("Logged out.")
+    return redirect(url_for("home"))
+
+
+def datetimeformat(value, format='%H:%M / %d-%m-%Y'):
+    return value.strftime(format)
+
+
 
 @app.errorhandler(404)
 def page_not_found(error):

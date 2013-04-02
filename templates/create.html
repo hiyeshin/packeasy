@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+	<head>
+		<title>Packeasy_Create_Trip</title>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>		
+		<link rel="stylesheet" type="text/css" href="css/style.css" media="screen, handheld" />
+		<link rel="stylesheet" type="text/css" href="css/enhanced.css" media="screen  and (min-width: 40.5em)" />
+
+		<link href="css/format.css" rel="stylesheet" type="text/css" />
+		<link href="css/text.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+		<script type="text/javascript" src="js/javascript.js"></script>
+
+		<!--[if (lt IE 9)&(!IEMobile)]>
+		<link rel="stylesheet" type="text/css" href="enhanced.css" />
+		<![endif]-->
+		<script type="text/javascript" src="js/modernizr.js"></script>
+
+		<script type="text/javascript">
+			function ChangeColor(tableRow, highLight) {
+				if (highLight) {
+					tableRow.style.backgroundColor = '#dcfac9';
+				} else {
+					tableRow.style.backgroundColor = 'white';
+				}
+			}
+
+			function DoNav(theUrl) {
+				document.location.href = theUrl;
+			}
+		</script>
+
+	</head>
+
+	<body id="page">
+
+		<div class="header">
+			<!--<a class="logo" href="home.html"><img src="images/packeasy.png" alt="Packeasy" /></a>-->
+			<a href="home.html"><h1>Packeasy</h1></a>
+		</div><!--header-->
+
+		<div class="main">
+			<div class="trip_name">
+				<input type = "text" id = "gmail_id" value = "Type Trip Name" />
+			</div><!--trip_name-->
+
+			<div class="trip_schedule">
+				<div class="schedule_header">
+					<h2>Schedule</h2>
+				</div>
+				START
+				<input type = "text" id = "gmail_id" value = "Select Calender" />
+				<br>
+				END
+				<input type = "text" id = "gmail_id" value = "Select Calender" />
+				<br>
+				REMINDER <a href="" class="on">On</a><a href="" class="off">Off</a>
+				<br>
+			</div><!--trip_schedule-->
+
+			<div class="packing_list">
+				<div class="packing_header">
+					<h2>Packing List</h2>
+				</div>
+
+				<div class="wrapper">
+					<div class="accordionButton">
+						FROM EXISTING TRIPS
+					</div>
+					<div class="accordionContent">
+						<table border="1" cellpadding="0" cellspacing="0">
+
+							<tr onmouseover="ChangeColor(this, true);"
+							onmouseout="ChangeColor(this, false);"
+							onclick="DoNav('my_trip.html');">
+								<td>Date</td>
+								<td>Location</td>
+								<td>Lists</td>
+							</tr>
+							<tr onmouseover="ChangeColor(this, true);"
+							onmouseout="ChangeColor(this, false);"
+							onclick="DoNav('my_trip.html');">
+								<td>Date</td>
+								<td>Location</td>
+								<td>Lists</td>
+							</tr>
+							<tr onmouseover="ChangeColor(this, true);"
+							onmouseout="ChangeColor(this, false);"
+							onclick="DoNav('my_trip.html');">
+								<td>Date</td>
+								<td>Location</td>
+								<td>Lists</td>
+							</tr>
+							<tr onmouseover="ChangeColor(this, true);"
+							onmouseout="ChangeColor(this, false);"
+							onclick="DoNav('my_trip.html');">
+								<td>Date</td>
+								<td>Location</td>
+								<td>Lists</td>
+							</tr>
+							<tr onmouseover="ChangeColor(this, true);"
+							onmouseout="ChangeColor(this, false);"
+							onclick="DoNav('my_trip.html');">
+								<td>Date</td>
+								<td>Location</td>
+								<td>Lists</td>
+							</tr>
+						</table>
+					</div>
+					
+					<div class="accordionButton">
+						SAMPLE
+					</div>
+					<div class="accordionContent">
+						<a href="sample_trip.html">Sample_01</a><br>
+						<a href="sample_trip.html">Sample_02</a><br>
+						<a href="sample_trip.html">Sample_03</a><br>
+					</div>
+					
+					<div class="accordionButton">
+						<a href="new_trip.html">FROM SCRATCH</a>
+					</div>
+				</div>
+				<br>
+				<br>
+				<a href="create_trip.html">
+				<button type="button">
+					Save
+				</button> </a>
+
+			</div><!--packing_list-->
+		</div><!--page-->
+
+	</body>
+
+</html>
+

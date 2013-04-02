@@ -8,10 +8,6 @@ from flask.ext.mongoengine import *
 from datetime import datetime
 import logging 
 
-######################################
-# below is for user authentification #
-######################################
-
 # below class is hash,
 class User(mongoengine.Document):
 	username = mongoengine.StringField(unique=True, max_length=30, required=True, verbose_name="Pick a Username")
@@ -34,6 +30,7 @@ class LoginForm(user_form):
 	password = PasswordField('Password',validators=[validators.Required()])
 
 ########### user login form is over ############
+## but what is content form then?
 
 class Content(mongoengine.Document):
     user = mongoengine.ReferenceField('User', dbref=True) # ^^^ points to User model ^^^
