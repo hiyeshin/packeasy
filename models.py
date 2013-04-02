@@ -80,4 +80,4 @@ class Items(Document):
 	quantity = StringField(required=True)
 
 
-item_form = model_form(Items)
+items_form = model_form(Items)

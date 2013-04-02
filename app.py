@@ -135,7 +135,7 @@ def user(username):
 
 		s = models.Trip.objects(user=user)
 			
-		return redirect('/admin')
+		return redirect('/create')
 
 	else:
 		templateData = {
@@ -152,7 +152,7 @@ def user(username):
 
 @app.route('/create', methods=['GET','POST'])
 @login_required
-def admin_main():
+def create():
 
 	TripForm = models.trip_form(request.form)
 
@@ -175,7 +175,7 @@ def admin_main():
 			e = sys.exc_info()
 			app.logger.error(e)
 			
-		return redirect('/create')
+		return redirect('/newtrip')
 
 	else:
 		templateData = {
@@ -188,41 +188,41 @@ def admin_main():
 
 	return render_template('create.html', **templateData)	
 
-# @app.route('/admin', methods=['GET','POST'])
-# @login_required
-# def admin_main():
+@app.route('/newtrip', methods=['GET','POST'])
+@login_required
+def newtrip():
 
-# 	contentForm = models.content_form(request.form)
+	ItemsForm = models.items_form(request.form)
 
-# 	if request.method=="POST" and contentForm.validate():
-# 		app.logger.debug(request.form)
+	if request.method=="POST" and itemsForm.validate():
+		app.logger.debug(request.form)
 		
-# 		newContent = models.Content()
-# 		newContent.title = request.form.get('title')
-# 		newContent.content = request.form.get('content')
+		newItems = models.Items()
+		newItems.item = request.form.get('item')
+		newItems.quantity = request.form.get('quantity')
 
-# 		#link to current user
-# 		newContent.user = current_user.get()
+		#link to current user
+		newContent.user = current_user.get()
 
-# 		try:
-# 			newContent.save()
+		try:
+			newItems.save()
 
-# 		except:
-# 			e = sys.exc_info()
-# 			app.logger.error(e)
+		except:
+			e = sys.exc_info()
+			app.logger.error(e)
 			
-# 		return redirect('/admin')
+		return redirect('/user/<username>')
 
-# 	else:
-# 		templateData = {
-# 			'allContent' : models.Content.objects(user=current_user.id),
-# 			'current_user' : current_user,
-# 			'form' : contentForm,
-# 			'formType' : 'New'
-# 		}
+	else:
+		templateData = {
+			'allItems' : models.Items.objects(user=current_user.id),
+			'current_user' : current_user,
+			'form' : ItemsForm,
+			'formType' : 'New'
+		}
 	
 
-# 	return render_template('admin.html', **templateData)
+	return render_template('new_trip.html', **templateData)
 	
 
 
@@ -238,10 +238,7 @@ def admin_main():
 
 	# 	trip.save()
 
-		# return redirect('/%s' % idea.slug)
-
-	
-
+	# return redirect('/%s' % idea.slug)
 
 
 	# return render_template('user_content.html', **templateData)
@@ -300,54 +297,54 @@ def register():
 
 
 		
-@app.route('/admin/<content_id>', methods=['GET','POST'])
-@login_required
-def admin_edit_post(content_id):
+# @app.route('/admin/<content_id>', methods=['GET','POST'])
+# @login_required
+# def admin_edit_post(content_id):
 
-	# get the content requested
-	contentData = models.Content.objects.get(id=content_id)
+# 	# get the content requested
+# 	contentData = models.Content.objects.get(id=content_id)
 
-	# if contentData exists AND is owned by current_user then continue
-	if contentData and contentData.user.id == current_user.id:
+# 	# if contentData exists AND is owned by current_user then continue
+# 	if contentData and contentData.user.id == current_user.id:
 
-		# create the content form, populate with contentData
-		contentForm = models.content_form(request.form, obj=contentData)
+# 		# create the content form, populate with contentData
+# 		contentForm = models.content_form(request.form, obj=contentData)
 
-		if request.method=="POST" and contentForm.validate():
-			app.logger.debug(request.form)
+# 		if request.method=="POST" and contentForm.validate():
+# 			app.logger.debug(request.form)
 			
-			contentData.title = request.form.get('title')
-			contentData.content = request.form.get('content')
+# 			contentData.title = request.form.get('title')
+# 			contentData.content = request.form.get('content')
 
 			
-			try:
-				contentData.save()
+# 			try:
+# 				contentData.save()
 
-			except:
-				e = sys.exc_info()
-				app.logger.error(e)
+# 			except:
+# 				e = sys.exc_info()
+# 				app.logger.error(e)
 			
-			flash("Post was updated successfully.")
-			return redirect('/admin/%s' % contentData.id)
+# 			flash("Post was updated successfully.")
+# 			return redirect('/admin/%s' % contentData.id)
 
-		else:
-			templateData = {
-				'allContent' : models.Content.objects(user=current_user.id),
-				'current_user' : current_user,
-				'form' : contentForm,
-				'formType' : 'Update'
-			}
+# 		else:
+# 			templateData = {
+# 				'allContent' : models.Content.objects(user=current_user.id),
+# 				'current_user' : current_user,
+# 				'form' : contentForm,
+# 				'formType' : 'Update'
+# 			}
 		
-		return render_template('admin.html', **templateData)
+# 		return render_template('admin.html', **templateData)
 
-	# current user does not own requested content
-	elif contentData.user.id != current_user.id:
+# 	# current user does not own requested content
+# 	elif contentData.user.id != current_user.id:
  
-		flash("Log in to edit this content.","login")
-		return redirect("/")
-	else:
+# 		flash("Log in to edit this content.","login")
+# 		return redirect("/")
+# 	else:
 
-		abort(404)
+# 		abort(404)
 	
 
 @app.route("/reauth", methods=["GET", "POST"])
@@ -400,6 +397,3 @@ if __name__ == "__main__":
 	port = int(os.environ.get('PORT', 5000)) # locally PORT 5000, Heroku will assign its own port
 	app.run(host='0.0.0.0', port=port)
 
-
-
-	
