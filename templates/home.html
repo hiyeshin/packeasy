@@ -1,44 +1,10 @@
-<!DOCTYPE HTML>
-<html lang="en-US">
-	<head>
-		<title>Packeasy</title>
+{% from "_form_helpers.html" import render_error, render_textarea %}
+{% extends "/layout/main.html" %}
 
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
-		<link rel="stylesheet" type="text/css" href="css/style.css" media="screen, handheld" />
-		<link rel="stylesheet" type="text/css" href="css/enhanced.css" media="screen  and (min-width: 40.5em)" />
 
-		<!--[if (lt IE 9)&(!IEMobile)]>
-		<link rel="stylesheet" type="text/css" href="enhanced.css" />
-		<![endif]-->
-		<script type="text/javascript" src="js/modernizr.js"></script>
-
-		<script type="text/javascript">
-			function ChangeColor(tableRow, highLight) {
-				if (highLight) {
-					tableRow.style.backgroundColor = '#dcfac9';
-				} else {
-					tableRow.style.backgroundColor = 'white';
-				}
-			}
-
-			function DoNav(theUrl) {
-				document.location.href = theUrl;
-			}
-		</script>
-
-	</head>
-
-	<body id="page">
-		<!-- <header role="banner">
-		<div>
-		<h1 class="logo"><a href="home.html"><img src="images/packeasy.png" alt="Packeasy" /></a></h1>
-		<h1 class="title">Packeasy</h1>
-		</div>
-		</header> -->
-		<!--end .header-->
-		
+{% block body %}
+	
 		<div class="header">
-        <!--<a class="logo" href="home.html"><img src="images/packeasy.png" alt="Packeasy" /></a>-->
 			<a href="home.html"><h1>Packeasy</h1></a>
 		</div><!--header-->
 
@@ -56,6 +22,10 @@
 					<caption>
 						My Trips
 					</caption>
+
+
+
+
 
 					<tr onmouseover="ChangeColor(this, true);"
 					onmouseout="ChangeColor(this, false);"
@@ -97,6 +67,9 @@
 			</div>
 		</div><!--page-->
 
-	</body>
 
-</html>
+{% endblock %}
+
+
+{% block styles %}{% endblock %}
+{% block scripts %}{% endblock %}

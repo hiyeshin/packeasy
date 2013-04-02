@@ -106,28 +106,6 @@ def login():
 
 		return render_template('/auth/login.html', **templateData)
 
-# @app.route('/') # this should be equal to login page
-# def index():
-# 	# get requested user's content
-# 	# then we don't need contents 
-# 	# but trip info
-# 	user_content = models.Content.objects
-
-# 	# prepare the template data dictionary
-# 	templateData = {
-# 		'current_user' : current_user,
-# 		'user_content'  : user_content,
-# 		'users' : models.User.objects()
-# 	}
-	
-# 	app.logger.debug(current_user)
-
-# 	return render_template('home.html', **templateData)
-	
-
-# hardcoded categories for the checkboxes on the form
-# categories = ['web','physical computing','software','video','music','installation','assistive technology','developing nations','business','social networks']
-# --------- Routes ----------
 
 # this is our main user page
 @app.route('/users/<username>') # display all the post. we may not need it

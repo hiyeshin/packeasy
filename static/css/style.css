@@ -1,0 +1,245 @@
+/*Colors
+red: #9d0000
+gray: #d7dad3
+active gray: #b0b3ad
+End Colors*/
+
+/************Reset**************/
+/*html, body, div, object, iframe, h1, h2, h3, h4, h5, h6, blockquote, ol, ul, li, form, fieldset, legend, label, table, header, footer, nav, section { 
+	margin: 0; 
+	padding: 0;
+	border: 0;
+} */
+
+/*ol, ul { 
+	list-style: none; 
+}
+header, footer, nav, section, article, hgroup, figure {
+	display: block;	
+}*/
+
+/*legend {
+	display: none;
+}*/
+/*header[role="banner"] {
+	position: relative;
+	background: #111; 
+	background: -moz-linear-gradient(top, #111 0%, #222 100%); 
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#111), color-stop(100%,#222)); 
+	background: -webkit-linear-gradient(top, #111 0%,#222 100%); 
+	background: -o-linear-gradient(top, #111 0%,#222 100%);
+	background: -ms-linear-gradient(top, #111 0%,#222 100%); 
+	background: linear-gradient(top, #111 0%,#222 100%);
+}
+header[role="banner"] > div {
+	max-width: 65em;
+	margin: 0 auto;
+	overflow: hidden;
+	text-align: left;
+	position: relative;
+	-webkit-animation: fadein 0.4s ease-out 1;
+	-moz-animation: fadein 0.4s ease-out 1;
+	-ms-animation: fadein 0.4s ease-out 1;
+}
+header[role="banner"] a:hover, header[role="banner"] a:focus {
+	color: #fff;
+	background-image: -webkit-radial-gradient(ellipse closest-side, rgba(255,255,255,0.1), rgba(255,255,255,0));
+	background-image: -moz-radial-gradient(ellipse closest-side, rgba(255,255,255,0.1), rgba(255,255,255,0));
+	background-image: -ms-radial-gradient(ellipse closest-side, rgba(255,255,255,0.1), rgba(255,255,255,0));
+	background-image: -o-radial-gradient(ellipse closest-side, rgba(255,255,255,0.1), rgba(255,255,255,0));
+}*/
+/************End Reset**************/
+
+/************Global**************/
+
+body 
+{ 
+	width:100%;
+	margin:auto;
+	font: 100%/1.5 'Gill Sans', 'Droid Sans', 'Calibri', 'Lucida Grande', 'Trebuchet MS', 'Helvetica Neue', 'Arial', sans-serif; 
+	color: #000;
+/*	background: url(images/bg2.png) #fff; */
+	text-align: center;
+	
+}
+
+h1 {
+	font: normal 1.6em/1.3 'Gill Sans', 'Droid Sans', 'Calibri', 'Lucida Grande', 'Trebuchet MS', 'Helvetica Neue', 'Arial', sans-serif;
+	text-rendering: optimizeLegibility;
+	margin: 0;
+	
+/*	margin-top: 5px;*/
+/*	text-shadow: 0 2px 0 #fff;*/
+	color: #fff;
+}
+h2 {
+	font-size: 1.2em;
+	font-weight: normal;
+	margin: 0;
+	text-rendering: optimizeLegibility;
+/*	text-shadow: 0 1px 0 #fff;*/
+}
+h3 {
+	margin: 0;
+	font-weight: normal;
+	text-rendering: optimizeLegibility;
+	text-shadow: 0 1px 0 #fff;
+}
+
+table
+{
+	width:100%;
+}
+
+/************Structure**************/
+.page
+{
+	height:100%;
+}
+.header
+{
+	border: 1px solid;
+	height:35px;
+	background: #111; 
+	background: -moz-linear-gradient(top, #111 0%, #222 100%); 
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#111), color-stop(100%,#222)); 
+	background: -webkit-linear-gradient(top, #111 0%,#222 100%); 
+	background: -o-linear-gradient(top, #111 0%,#222 100%);
+	background: -ms-linear-gradient(top, #111 0%,#222 100%); 
+	background: linear-gradient(top, #111 0%,#222 100%);	
+	
+	
+}
+
+.header a:link {text-decoration:none;}    /* unvisited link */
+.header a:visited {text-decoration:none;} /* visited link */
+.header a:hover {text-decoration:none;}   /* mouse over link */
+.header a:active {text-decoration:none;}  /* selected link */
+.header .logo
+{
+/*	float:left;
+	margin:7px;*/
+}
+
+.main 
+{
+/*	border: 1px solid;*/
+	margin: auto;
+/*	padding: 0 1em;*/
+	max-width: 61.75em; 
+	/* 988px / 16px = 61.75em */
+}
+
+.create_trip
+{
+	border: 1px solid;
+	height:210px;
+}
+.trip_list
+{
+	border: 1px solid;
+}
+.trip_name
+{
+	border: 1px solid;
+	height:40px;
+}
+.mytrip_name
+{
+/*	float:left;*/
+/*	border: 1px solid;*/
+	width:100%;
+	height:30px;
+	border-bottom: 2px solid rgb(100,100,100);
+}
+.mytrip_name h2
+{
+	float:left;
+	margin-left:15px;
+}
+.mytrip_btn
+{
+	margin: auto;
+	padding-top:10px;
+	height:35px;	
+	border:1px solid;
+}
+.mytrip_wrapper h2
+{
+	float:left;
+	margin-top:3px;
+	margin-left:15px;
+	font-size:16px;	
+	color:#fff;
+}
+.schedule_header
+{
+	background-color:#e7432f;
+	color:#fff;
+}
+.packing_header
+{
+	background-color:#e7432f;
+	color:#fff;
+}
+.share_trip_header
+{
+	background-color:#e7432f;
+	color:#fff;
+}
+.share_btn
+{
+	float:right;
+	margin-top:0.4em;
+	margin-right:0.5em;
+}
+
+.trip_schedule
+{
+	border: 1px solid;
+	height:120px;
+}
+.packing_list
+{
+	border: 1px solid;
+	height:160px;
+}
+
+.index_logo
+{
+	border:1px solid;	
+	height: 80px;
+}
+.form
+{
+	border:1px solid;	
+	height: 280px;	
+}
+.index_form
+{
+	margin-top:30px;
+}
+
+.index_sign
+{
+	margin-top:20px;
+}
+
+.logo {
+	float: left;
+    /*margin: 0.35em 0 0.25em 0.7em;*/
+}
+.logo a, .logo img {
+	width: 20px;
+	height: 20px;
+}
+
+.title
+{
+	margin:auto;
+}
+
+
+
+
+

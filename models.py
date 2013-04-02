@@ -4,7 +4,6 @@ from flask.ext.mongoengine.wtf import model_form
 from wtforms.fields import * # for our custom signup form
 from flask.ext.mongoengine.wtf.orm import validators
 from flask.ext.mongoengine import *
-
 from datetime import datetime
 import logging 
 
@@ -64,21 +63,22 @@ content_form = model_form(Content)
 
 	
 class Trip(Document):
-
-	date = StringField(max_length=120, required=True, verbose_name="First name")
-	tripname = StringField(max_length=120, required=True)
-	listname =  StringField(StringField(max_length=30))
-	item = StringField(StringField(max_length=30))
-	quantity = StringField(required=True)
+	startdate = StringField(max_length=120, required=True, verbose_name="start date")
+	enddate = StringField(max_length=120, required=True, verbose_name="end date")	
 	reminder = StringField(required = True)
-
-	# Category is a list of Strings
-	#categories = ListField(StringField(max_length=30))
-
-
-	# Timestamp will record the date and time idea was created.
+	listname =  StringField(StringField(max_length=30))
+	
 	timestamp = DateTimeField(default=datetime.now())
 
 
 # Create a Validation Form from the Idea model
 TripForm = model_form(Trip)
+
+
+class Items(Document):
+	tripname = StringField(max_length=120, required=True)
+	item = StringField(StringField(max_length=30))
+	quantity = StringField(required=True)
+
+
+ItemsForm = model_form(Items)

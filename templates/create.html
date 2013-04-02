@@ -1,39 +1,8 @@
-<!DOCTYPE HTML>
-<html lang="en-US">
-	<head>
-		<title>Packeasy_Create_Trip</title>
-		
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>		
-		<link rel="stylesheet" type="text/css" href="css/style.css" media="screen, handheld" />
-		<link rel="stylesheet" type="text/css" href="css/enhanced.css" media="screen  and (min-width: 40.5em)" />
+{% from "_form_helpers.html" import render_error, render_textarea %}
+{% extends "/layout/main.html" %}
 
-		<link href="css/format.css" rel="stylesheet" type="text/css" />
-		<link href="css/text.css" rel="stylesheet" type="text/css" />
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-		<script type="text/javascript" src="js/javascript.js"></script>
 
-		<!--[if (lt IE 9)&(!IEMobile)]>
-		<link rel="stylesheet" type="text/css" href="enhanced.css" />
-		<![endif]-->
-		<script type="text/javascript" src="js/modernizr.js"></script>
-
-		<script type="text/javascript">
-			function ChangeColor(tableRow, highLight) {
-				if (highLight) {
-					tableRow.style.backgroundColor = '#dcfac9';
-				} else {
-					tableRow.style.backgroundColor = 'white';
-				}
-			}
-
-			function DoNav(theUrl) {
-				document.location.href = theUrl;
-			}
-		</script>
-
-	</head>
-
-	<body id="page">
+{% block body %}
 
 		<div class="header">
 			<!--<a class="logo" href="home.html"><img src="images/packeasy.png" alt="Packeasy" /></a>-->
@@ -132,7 +101,10 @@
 			</div><!--packing_list-->
 		</div><!--page-->
 
-	</body>
 
-</html>
 
+{% endblock %}
+
+
+{% block styles %}{% endblock %}
+{% block scripts %}{% endblock %}
