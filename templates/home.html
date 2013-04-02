@@ -20,13 +20,22 @@
 				<table border="1" cellpadding="0" cellspacing="0">
 
 					<caption>
-						My Trips
+						{{ current_user.username }}'s Trips
 					</caption>
 
+					{% for t in user_trip %}
+						<tr onmouseover="ChangeColor(this, true);" onmouseout="ChangeColor(this, false);" onclick="DoNav('create_trip.html');">
+						<td>{{ startdate }}} - {{ enddate }}</td>
+						<td>{{ location }}</td>
+						<td>{{ listname }}</td>
+						</tr>
+					{% endfor %}
 
 
 
 
+
+<!-- 
 					<tr onmouseover="ChangeColor(this, true);"
 					onmouseout="ChangeColor(this, false);"
 					onclick="DoNav('create_trip.html');">
@@ -61,7 +70,7 @@
 						<td>Date</td>
 						<td>Location</td>
 						<td>Lists</td>
-					</tr>
+					</tr> -->
 				</table>
 
 			</div>

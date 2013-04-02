@@ -126,23 +126,14 @@ def user(username):
 		newTrip.user = current_user.get()
 
 
-	# class Trip(Document):
-	# startdate = StringField(max_length=120, required=True, verbose_name="start date")
-	# enddate = StringField(max_length=120, required=True, verbose_name="end date")
-	# location = StringField(required = True)
-	# reminder = StringField(required = True)
-	# tripname = StringField(max_length=120, required=True)
-	# timestamp = DateTimeField(default=datetime.now())
-
-		#link to current user
-		#newContent.user = current_user.get()
-
 		try:
 			newTrip.save()
 
 		except:
 			e = sys.exc_info()
 			app.logger.error(e)
+
+		s = models.Trip.objects(user=user)
 			
 		return redirect('/admin')
 
@@ -153,12 +144,49 @@ def user(username):
 			'form' : TripForm,
 			'formType' : 'New'
 		}
-	
 
 	return render_template('home.html', **templateData)
 	
 
 
+
+@app.route('/create', methods=['GET','POST'])
+@login_required
+def admin_main():
+
+	TripForm = models.trip_form(request.form)
+
+	if request.method=="POST" and tripForm.validate():
+		app.logger.debug(request.form)
+		
+		newTrip  = models.Trip()
+		newTrip.startdate = request.form.get('startdate')
+		newTrip.enddate = request.form.get('enddate')
+		newTrip.location = request.form.get('location')
+		newTrip.reminder = request.form.get('reminder')
+		newTrip.tripname = request.form.get('tripname')
+
+		newTrip.user = current_user.get()
+
+		try:
+			newTrip.save()
+
+		except:
+			e = sys.exc_info()
+			app.logger.error(e)
+			
+		return redirect('/create')
+
+	else:
+		templateData = {
+			'allTrip' : models.Trip.objects(user=current_user.id),
+			'current_user' : current_user,
+			'form' : TripForm,
+			'formType' : 'New'
+		}
+	
+
+	return render_template('create.html', **templateData)	
 
 # @app.route('/admin', methods=['GET','POST'])
 # @login_required
@@ -271,46 +299,6 @@ def register():
 	return render_template("/auth/register.html", **templateData)
 
 
-
-
-
-
-
-@app.route('/create', methods=['GET','POST'])
-@login_required
-def admin_main():
-
-	contentForm = models.content_form(request.form)
-
-	if request.method=="POST" and contentForm.validate():
-		app.logger.debug(request.form)
-		
-		newContent = models.Content()
-		newContent.title = request.form.get('title')
-		newContent.content = request.form.get('content')
-
-		#link to current user
-		newContent.user = current_user.get()
-
-		try:
-			newContent.save()
-
-		except:
-			e = sys.exc_info()
-			app.logger.error(e)
-			
-		return redirect('/create')
-
-	else:
-		templateData = {
-			'allContent' : models.Content.objects(user=current_user.id),
-			'current_user' : current_user,
-			'form' : contentForm,
-			'formType' : 'New'
-		}
-	
-
-	return render_template('create.html', **templateData)
 		
 @app.route('/admin/<content_id>', methods=['GET','POST'])
 @login_required
