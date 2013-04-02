@@ -56,7 +56,7 @@ login_manager.refresh_view = "reauth"
 @login_manager.user_loader
 def load_user(id):
 	if id is None:
-		redirect('/login')
+		redirect('/')
 
 	# below is from the library not models module	
 	user = User()
@@ -69,25 +69,60 @@ def load_user(id):
 # connect the login manager to the main Flask app
 login_manager.setup_app(app)
 
+# Login route - will display login form and receive POST to authenicate a user
+@app.route("/", methods=["GET", "POST"])
+def login():
 
-
-@app.route('/') # this should be equal to login page
-def index():
-	# get requested user's content
-	# then we don't need contents 
-	# but trip info
-	user_content = models.Content.objects
-
-	# prepare the template data dictionary
-	templateData = {
-		'current_user' : current_user,
-		'user_content'  : user_content,
-		'users' : models.User.objects()
-	}
+	# get the login and registration forms
+	loginForm = models.LoginForm(request.form)
 	
-	app.logger.debug(current_user)
+	# is user trying to log in?
+	# 
+	if request.method == "POST" and 'email' in request.form:
+		email = request.form["email"]
 
-	return render_template('home.html', **templateData)
+		user = User().get_by_email_w_password(email)
+		
+		# if user in database and password hash match then log in.
+	  	if user and flask_bcrypt.check_password_hash(user.password,request.form["password"]) and user.is_active():
+			remember = request.form.get("remember", "no") == "yes"
+
+			if login_user(user, remember=remember):
+				flash("Logged in!")
+				return redirect('/users/<username>')
+			else:
+
+				flash("unable to log you in","login")
+	
+		else:
+			flash("Incorrect email and password submission","login")
+			return redirect("/")
+
+	else:
+
+		templateData = {
+			'form' : loginForm
+		}
+
+		return render_template('/auth/login.html', **templateData)
+
+# @app.route('/') # this should be equal to login page
+# def index():
+# 	# get requested user's content
+# 	# then we don't need contents 
+# 	# but trip info
+# 	user_content = models.Content.objects
+
+# 	# prepare the template data dictionary
+# 	templateData = {
+# 		'current_user' : current_user,
+# 		'user_content'  : user_content,
+# 		'users' : models.User.objects()
+# 	}
+	
+# 	app.logger.debug(current_user)
+
+# 	return render_template('home.html', **templateData)
 	
 
 # hardcoded categories for the checkboxes on the form
@@ -98,27 +133,78 @@ def index():
 @app.route('/users/<username>') # display all the post. we may not need it
 def user(username):
 
-	try:
-		user = models.User.objects.get(username=username)
+	contentForm = models.content_form(request.form)
 
-	except Exception:
-		e = sys.exc_info()
-		app.logger.error(e)
-		abort(404)
+	if request.method=="POST" and contentForm.validate():
+		app.logger.debug(request.form)
+		
+		newContent = models.Content()
+		newContent.title = request.form.get('title')
+		newContent.content = request.form.get('content')
 
-	# get content that is linked to user, 
-	user_content = models.Content.objects(user=user)
-	#trip_form = models.TripForm(request.form)
+		#link to current user
+		newContent.user = current_user.get()
 
-	# prepare the template data dictionary
-	templateData = {
-		'user' : user,
-		'current_user' : current_user,
-		'user_content'  : user_content,
-		'users' : models.User.objects()
-	}
+		try:
+			newContent.save()
 
-	return render_template("home.html", **templateData)
+		except:
+			e = sys.exc_info()
+			app.logger.error(e)
+			
+		return redirect('/admin')
+
+	else:
+		templateData = {
+			'allContent' : models.Content.objects(user=current_user.id),
+			'current_user' : current_user,
+			'form' : contentForm,
+			'formType' : 'New'
+		}
+	
+
+	return render_template('home.html', **templateData)
+	
+
+
+
+# @app.route('/admin', methods=['GET','POST'])
+# @login_required
+# def admin_main():
+
+# 	contentForm = models.content_form(request.form)
+
+# 	if request.method=="POST" and contentForm.validate():
+# 		app.logger.debug(request.form)
+		
+# 		newContent = models.Content()
+# 		newContent.title = request.form.get('title')
+# 		newContent.content = request.form.get('content')
+
+# 		#link to current user
+# 		newContent.user = current_user.get()
+
+# 		try:
+# 			newContent.save()
+
+# 		except:
+# 			e = sys.exc_info()
+# 			app.logger.error(e)
+			
+# 		return redirect('/admin')
+
+# 	else:
+# 		templateData = {
+# 			'allContent' : models.Content.objects(user=current_user.id),
+# 			'current_user' : current_user,
+# 			'form' : contentForm,
+# 			'formType' : 'New'
+# 		}
+	
+
+# 	return render_template('admin.html', **templateData)
+	
+
 
 	# if request.method == "POST" and trip_form.validate():
 	# 	trip = models.Trip()
@@ -192,43 +278,10 @@ def register():
 	
 	return render_template("/auth/register.html", **templateData)
 
-	
-# Login route - will display login form and receive POST to authenicate a user
-@app.route("/login", methods=["GET", "POST"])
-def login():
 
-	# get the login and registration forms
-	loginForm = models.LoginForm(request.form)
-	
-	# is user trying to log in?
-	# 
-	if request.method == "POST" and 'email' in request.form:
-		email = request.form["email"]
 
-		user = User().get_by_email_w_password(email)
-		
-		# if user in database and password hash match then log in.
-	  	if user and flask_bcrypt.check_password_hash(user.password,request.form["password"]) and user.is_active():
-			remember = request.form.get("remember", "no") == "yes"
 
-			if login_user(user, remember=remember):
-				flash("Logged in!")
-				return redirect(request.args.get("next") or '/admin')
-			else:
 
-				flash("unable to log you in","login")
-	
-		else:
-			flash("Incorrect email and password submission","login")
-			return redirect("/login")
-
-	else:
-
-		templateData = {
-			'form' : loginForm
-		}
-
-		return render_template('/auth/login.html', **templateData)
 
 
 @app.route('/create', methods=['GET','POST'])
@@ -311,7 +364,7 @@ def admin_edit_post(content_id):
 	elif contentData.user.id != current_user.id:
  
 		flash("Log in to edit this content.","login")
-		return redirect("/login")
+		return redirect("/")
 	else:
 
 		abort(404)

@@ -25,7 +25,7 @@
           {% endif %}
         {% endwith %}
 
-        <form class="index_form" method="post" action="/login">
+        <form class="index_form" method="post" action="/">
             {{ form.email.label }} {{ form.email(type="email") }}
             {{ form.password.label }} {{ form.password }}<br>
             <input type="checkbox" name="remember" value="yes"> Remember me
