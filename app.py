@@ -111,20 +111,34 @@ def login():
 @app.route('/users/<username>') # display all the post. we may not need it
 def user(username):
 
-	contentForm = models.content_form(request.form)
+	TripForm = models.trip_form(request.form)
 
-	if request.method=="POST" and contentForm.validate():
+	if request.method=="POST" and TripForm.validate():
 		app.logger.debug(request.form)
 		
-		newContent = models.Content()
-		newContent.title = request.form.get('title')
-		newContent.content = request.form.get('content')
+		newTrip  = models.Trip()
+		newTrip.startdate = request.form.get('startdate')
+		newTrip.enddate = request.form.get('enddate')
+		newTrip.location = request.form.get('location')
+		newTrip.reminder = request.form.get('reminder')
+		newTrip.tripname = request.form.get('tripname')
+
+		newTrip.user = current_user.get()
+
+
+	# class Trip(Document):
+	# startdate = StringField(max_length=120, required=True, verbose_name="start date")
+	# enddate = StringField(max_length=120, required=True, verbose_name="end date")
+	# location = StringField(required = True)
+	# reminder = StringField(required = True)
+	# tripname = StringField(max_length=120, required=True)
+	# timestamp = DateTimeField(default=datetime.now())
 
 		#link to current user
-		newContent.user = current_user.get()
+		#newContent.user = current_user.get()
 
 		try:
-			newContent.save()
+			newTrip.save()
 
 		except:
 			e = sys.exc_info()
@@ -134,9 +148,9 @@ def user(username):
 
 	else:
 		templateData = {
-			'allContent' : models.Content.objects(user=current_user.id),
+			'allTrip' : models.Trip.objects(user=current_user.id),
 			'current_user' : current_user,
-			'form' : contentForm,
+			'form' : TripForm,
 			'formType' : 'New'
 		}
 	

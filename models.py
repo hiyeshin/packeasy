@@ -31,18 +31,18 @@ class LoginForm(user_form):
 ########### user login form is over ############
 ## but what is content form then?
 
-class Content(mongoengine.Document):
-    user = mongoengine.ReferenceField('User', dbref=True) # ^^^ points to User model ^^^
-    title = mongoengine.StringField(max_length="100",required=True)
-    content = mongoengine.StringField(required=True)
-    timestamp = mongoengine.DateTimeField(default=datetime.now())
+# class Content(mongoengine.Document):
+#     user = mongoengine.ReferenceField('User', dbref=True) # ^^^ points to User model ^^^
+#     title = mongoengine.StringField(max_length="100",required=True)
+#     content = mongoengine.StringField(required=True)
+#     timestamp = mongoengine.DateTimeField(default=datetime.now())
 
-    @mongoengine.queryset_manager
-    def objects(doc_cls, queryset):
-    	return queryset.order_by('-timestamp')
+#     @mongoengine.queryset_manager
+#     def objects(doc_cls, queryset):
+#      return queryset.order_by('-timestamp')
 
-# content form
-content_form = model_form(Content)
+# # content form
+# content_form = model_form(Content)
 
 
 #############################################
@@ -62,23 +62,22 @@ content_form = model_form(Content)
 # 	timestamp = DateTimeField(default=datetime.now())
 
 	
-class Trip(Document):
-	startdate = StringField(max_length=120, required=True, verbose_name="start date")
-	enddate = StringField(max_length=120, required=True, verbose_name="end date")	
-	reminder = StringField(required = True)
-	listname =  StringField(StringField(max_length=30))
-	
-	timestamp = DateTimeField(default=datetime.now())
-
-
+class Trip(mongoengine.Document):
+	user = mongoengine.ReferenceField('User', dbref = True)
+	startdate = mongoengine.DateTimeField(required=True, verbose_name="start date")
+	enddate = mongoengine.DateTimeField(required=True, verbose_name="end date")
+	location = mongoengine.StringField(required = True)
+	reminder = mongoengine.StringField(required = True)
+	tripname = mongoengine.StringField(max_length=120, required=True)
+	timestamp = mongoengine.DateTimeField(default=datetime.now())
 # Create a Validation Form from the Idea model
-TripForm = model_form(Trip)
+trip_form = model_form(Trip)
 
 
 class Items(Document):
-	tripname = StringField(max_length=120, required=True)
+	listname =  StringField(StringField(max_length=30))
 	item = StringField(StringField(max_length=30))
 	quantity = StringField(required=True)
 
 
-ItemsForm = model_form(Items)
+item_form = model_form(Items)
