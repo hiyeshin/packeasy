@@ -40,13 +40,23 @@ class Trip(mongoengine.Document):
 	reminder = mongoengine.StringField(required = True)
 	tripname = mongoengine.StringField(max_length=120, required=True)
 	timestamp = mongoengine.StringField(default=datetime.now())
-# Create a Validation Form from the Idea model
+
+	@mongoengine.queryset_manager
+	def objects(doc_cls, queryset):
+		return queryset.order_by('-timestamp')
+
 trip_form = model_form(Trip)
 
 
-class Items(Document):
-	listname = StringField(StringField(max_length=30))
-	item = StringField(StringField(max_length=30))
-	quantity = StringField(required=True)
+class Items(mongoengine.Document):
+	user = mongoengine.ReferenceField('User', dbref = True)
+	listname = mongoengine.StringField(max_length=30)
+	item = mongoengine.StringField(max_length=30)
+	quantity = mongoengine.StringField(required=True)
+	timestamp = mongoengine.StringField(default=datetime.now())
+
+	@mongoengine.queryset_manager
+	def objects(doc_cls, queryset):
+		return queryset.order_by('-timestamp')
 
 items_form = model_form(Items)
