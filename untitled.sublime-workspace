@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"new",
+				"newtrip"
+			],
+			[
+				"current",
+				"current_user"
+			],
+			[
 				"slid",
 				"slides_restaurant"
 			],
@@ -175,6 +183,73 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "app.py",
+			"settings":
+			{
+				"buffer_size": 9046,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "templates/new_trip.html",
+			"settings":
+			{
+				"buffer_size": 6747,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "templates/home.html",
+			"settings":
+			{
+				"buffer_size": 1273,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "models.py",
+			"settings":
+			{
+				"buffer_size": 2491,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "{% from \"_form_helpers.html\" import render_error, render_textarea %}\n{% extends \"layout/main.html\" %}\n\n\n{% block body %}\n\n\n\n<div class=\"row\">\n\n	<!-- left column -->\n	<div class=\"span6\">\n		<h3>Submitted Ideas</h3>\n\n		{% for idea in ideas %}\n			<h4><a href=\"/ideas/{{ idea.slug }}\">{{ idea.title }}</a></h4>\n			<p>by {{ idea.creator }}</p>\n			<p>\n			{% for cat in idea.categories %}\n				<span class=\"label label-inverse\"><a href=\"/category/{{ cat}}\">{{ cat|replace(\"_\",\" \")}}</a></span>\n			{% endfor %}\n			<a class=\"label\" href=\"/ideas/{{ idea.slug }}/edit\">edit</a>\n			</p>\n			\n			<hr/>\n		{% endfor %}\n		\n	</div>\n\n	<div class=\"span6\">\n		\n\n		<form method=\"POST\" action=\"/\">\n			<legend><h3>Share Your Ideas</h3></legend>\n\n			{% if form.errors %}\n\n			    <ul class=\"errors\">\n			        {% for field_name, field_errors in form.errors|dictsort if field_errors %}\n			            {% for error in field_errors %}\n			                <li class=\"alert\">{{ form[field_name].label }}: {{ error }}</li>\n			            {% endfor %}\n			        {% endfor %}\n			    </ul>\n			{% endif %}\n\n			{{ form.creator.label(class='myLabelCssClass') }}\n			{{ form.creator(class='myTextboxCssClass') }}\n			{{ render_error(form.creator) }}\n			<!--\n			<label for=\"creator\">First Name</label>\n			<input type=\"text\" id=\"creator\" name=\"creator\" value=\"{{ form.creator }}\">\n			-->\n			\n			{{ form.title.label(class='myLabelCssClass') }}\n			{{ form.title(class='myTextboxCssClass') }}\n			\n			<!--\n			<label for=\"title\">Project Title</label>\n			<input type=\"text\" id=\"title\" name=\"title\">\n			-->\n			{{ form.idea.label }}\n			{{ render_textarea(form.idea, cols=\"50\", rows=\"6\") }} {# render_textarea inside _form_helpers.html #}\n			\n\n			<br>\n			<label>Category</label>\n			<span class=\"help-block\">Select as many as you need.</span>\n\n			\n			{# comment - loop through categories and create checkboxes #}\n			{% for c in categories|sort %}\n			<label class=\"checkbox\">\n			<input type=\"checkbox\" name=\"categories\" value=\"{{ c|replace(\" \",\"_\") }}\" {% if c|replace(\" \",\"_\") in form.categories.data %}checked=checked{% endif %} > {{ c|title }}\n			</label>\n			{% endfor %}\n\n\n			<button type=\"submit\" class=\"btn btn-primary\">Add Idea</button>\n		</form>\n	</div>\n\n	\n\n</div>\n\n{% endblock %}\n\n\n{% block styles %}{% endblock %}\n{% block scripts %}{% endblock %}",
+			"file": "templates/main.html",
+			"file_size": 2305,
+			"file_write_time": 1364850351000000,
+			"settings":
+			{
+				"buffer_size": 2301,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "templates/layout/main.html",
+			"settings":
+			{
+				"buffer_size": 2181,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "templates/auth/register.html",
+			"settings":
+			{
+				"buffer_size": 1430,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "libs/user.py",
+			"settings":
+			{
+				"buffer_size": 2634,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "Packages/Python/Python.sublime-build",
 	"command_palette":
@@ -200,6 +275,13 @@
 	},
 	"file_history":
 	[
+		"/Users/Hazel/Desktop/packeasy/templates/auth/login.html",
+		"/Users/Hazel/Desktop/packeasy/static/js/main.js",
+		"/Users/Hazel/Desktop/packeasy/templates/create.html",
+		"/Users/Hazel/Desktop/packeasy/app.py",
+		"/Users/Hazel/Desktop/packeasy/models.py",
+		"/Users/Hazel/Desktop/packeasy/static/js/modernizr.js",
+		"/Users/Hazel/Desktop/packeasy/templates/home.html",
 		"/Users/Hazel/Desktop/portfolio_website/static/css/lightbox.css",
 		"/Users/Hazel/Desktop/portfolio_website/static/js/lightbox.js",
 		"/Users/Hazel/Desktop/keepoff /src/python/keepoff_osc.py",
@@ -317,8 +399,246 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "app.py",
+					"settings":
+					{
+						"buffer_size": 9046,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6218,
+								6218
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3034.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "templates/new_trip.html",
+					"settings":
+					{
+						"buffer_size": 6747,
+						"regions":
+						{
+							"TagLint":
+							{
+								"flags": 52,
+								"icon": "dot",
+								"regions":
+								[
+									[
+										308,
+										326
+									]
+								],
+								"scope": "variable.parameter"
+							}
+						},
+						"selection":
+						[
+							[
+								848,
+								794
+							]
+						],
+						"settings":
+						{
+							"is_xml": false,
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 181.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "templates/home.html",
+					"settings":
+					{
+						"buffer_size": 1273,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								955,
+								1258
+							]
+						],
+						"settings":
+						{
+							"is_xml": false,
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 268.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "models.py",
+					"settings":
+					{
+						"buffer_size": 2491,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2164,
+								2164
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 486.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "templates/main.html",
+					"settings":
+					{
+						"buffer_size": 2301,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2301,
+								2301
+							]
+						],
+						"settings":
+						{
+							"is_xml": false,
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "templates/layout/main.html",
+					"settings":
+					{
+						"buffer_size": 2181,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1568,
+								1568
+							]
+						],
+						"settings":
+						{
+							"is_xml": false,
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "templates/auth/register.html",
+					"settings":
+					{
+						"buffer_size": 1430,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								25,
+								25
+							]
+						],
+						"settings":
+						{
+							"is_xml": false,
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "libs/user.py",
+					"settings":
+					{
+						"buffer_size": 2634,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								573,
+								573
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -382,6 +702,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 386.0,
+	"side_bar_width": 137.0,
 	"status_bar_visible": true
 }

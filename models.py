@@ -53,6 +53,7 @@ class Items(mongoengine.Document):
 	user = mongoengine.ReferenceField('User', dbref = True)
 	listname = mongoengine.StringField(max_length=30)
 	item = mongoengine.StringField(max_length=30)
+	# itemslist = mongoengine.ListField(StringField(max_length = 30))
 	quantity = mongoengine.StringField(required=True)
 	timestamp = mongoengine.DateTimeField(default=datetime.now())
 
@@ -62,3 +63,4 @@ class Items(mongoengine.Document):
 		
 # items form
 items_form = model_form(Items)
+

@@ -36,6 +36,8 @@ login_manager.login_view = "login"
 login_manager.login_message = u"Please log in to access this page."
 login_manager.refresh_view = "reauth"
 
+itemslist = ['shirts', 'suits', 'ties', 'macbooks', 'iPad', 'Adaptors']
+
 # Flask-Login requires a 'user_loader' callback 
 # This method will called with each Flask route request automatically
 # When this callback runs, it will populate the User object, current_user
@@ -219,10 +221,11 @@ def newtrip():
 		
 		newItems = models.Items()
 		newItems.item = request.form.get('item')
+		newItems.itemslist = request.form.getlist('itemslist')
 		newItems.quantity = request.form.get('quantity')
 
 		#link to current user
-		newContent.user = current_user.get()
+		newItems.user = current_user.get()
 
 		try:
 			newItems.save()
@@ -237,6 +240,7 @@ def newtrip():
 		templateData = {
 			'allItems' : models.Items.objects(user=current_user.id),
 			'current_user' : current_user,
+			'itemlists': itemlists,
 			'form' : ItemsForm,
 			'formType' : 'New'
 		}
