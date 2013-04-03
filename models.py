@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from mongoengine import *
+#from mongoengine import *
 from flask.ext.mongoengine.wtf import model_form
 from wtforms.fields import * # for our custom signup form
 from flask.ext.mongoengine.wtf.orm import validators
 from flask.ext.mongoengine import *
 from datetime import datetime
-import logging 
+#import logging 
 
 # below class is hash,
 class User(mongoengine.Document):
@@ -39,12 +39,13 @@ class Trip(mongoengine.Document):
 	location = mongoengine.StringField()
 	reminder = mongoengine.StringField()
 	tripname = mongoengine.StringField(max_length=120)
-	timestamp = mongoengine.StringField(default=datetime.now())
+	timestamp = mongoengine.DateTimeField(default=datetime.now())
 
 	@mongoengine.queryset_manager
 	def objects(doc_cls, queryset):
 		return queryset.order_by('-timestamp')
 
+#trip form
 trip_form = model_form(Trip)
 
 
@@ -53,10 +54,11 @@ class Items(mongoengine.Document):
 	listname = mongoengine.StringField(max_length=30)
 	item = mongoengine.StringField(max_length=30)
 	quantity = mongoengine.StringField(required=True)
-	timestamp = mongoengine.StringField(default=datetime.now())
+	timestamp = mongoengine.DateTimeField(default=datetime.now())
 
 	@mongoengine.queryset_manager
 	def objects(doc_cls, queryset):
 		return queryset.order_by('-timestamp')
-
+		
+# items form
 items_form = model_form(Items)

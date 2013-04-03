@@ -7,21 +7,21 @@ from flask import Flask, session, request, url_for, escape, render_template, jso
 # session is just a dictionary and flask converts it to cookie
 
 # import all of mongoengine
-from mongoengine import *
+# from mongoengine import *
 import models
 
 from flask.ext.mongoengine import mongoengine
 
 # for json needs
-import json
-from flask import jsonify
+# import json
+# from flask import jsonify
 
 # below is for Flask-login
 
 from flask.ext.login import (LoginManager, current_user, login_required,
                             login_user, logout_user, UserMixin, AnonymousUser,
                             confirm_login, fresh_login_required)
-import requests
+# import requests
 
 from flaskext.bcrypt import Bcrypt
 
@@ -35,9 +35,9 @@ app.secret_key = os.environ.get('SECRET_KEY')
 flask_bcrypt = Bcrypt(app)
 
 #   MONGOLAB_URI=mongodb://localhost:27017/dwdfall2012
+
 mongoengine.connect('mydata', host=os.environ.get('MONGOLAB_URI'))
 
-# Login management defined
 # reference http://packages.python.org/Flask-Login/#configuring-your-application
 login_manager = LoginManager()
 login_manager.anonymous_user = Anonymous
@@ -104,45 +104,82 @@ def login():
 
 
 # this is our main user page
-@app.route('/home', methods=['GET','POST']) # display all the post. we may not need it
+@app.route('/home', methods = ["GET"]) # display all the post. we may not need it
 @login_required
 def home():
 
+	# try:
+	# 	user = models.User.objects.get(username=username)
+
+	# except Exception:
+	# 	e = sys.exc_info()
+	# 	app.logger.error(e)
+	# 	abort(404)
+
+	# # get content that is linked to user, 
+	# trip_content = models.Trip.objects(user=user)
+
+	# # prepare the template data dictionary
+	# templateData = {
+	# 	'allTrip' : models.Trip.objects(user=current_user.id),
+	# 	'current_user' : current_user,
+	# 	'form' : TripForm,
+	# 	'formType' : 'New'
+	# }
+
+
+	# return render_template('home.html', **templateData)
+
+
+
+
+
+
 	TripForm = models.trip_form(request.form)
 
-	if request.method=="POST" and TripForm.validate():
-		app.logger.debug(request.form)
+	templateData = {
+		'allTrip' : models.Trip.objects(user=current_user.id),
+		'current_user' : current_user,
+		'form' : TripForm,
+		'formType' : 'New'
+	}
+
+	return render_template('home.html', **templateData)
+
+	# if request.method=="POST" and TripForm.validate():
+	# 	app.logger.debug(request.form)
 		
-		newTrip  = models.Trip()
-		newTrip.startdate = request.form.get('startdate')
-		newTrip.enddate = request.form.get('enddate')
-		newTrip.location = request.form.get('location')
-		newTrip.reminder = request.form.get('reminder')
-		newTrip.tripname = request.form.get('tripname')
+	# 	newTrip  = models.Trip()
+	# 	newTrip.startdate = request.form.get('startdate')
+	# 	newTrip.enddate = request.form.get('enddate')
+	# 	newTrip.location = request.form.get('location')
+	# 	newTrip.reminder = request.form.get('reminder')
+	# 	newTrip.tripname = request.form.get('tripname')
 
-		newTrip.user = current_user.get()
+	# 	newTrip.user = current_user.get()
 
 
-		try:
-			newTrip.save()
+	# 	try:
+	# 		newTrip.save()
+	# 		app.logger.debugger("saved!")
 
-		except:
-			e = sys.exc_info()
-			app.logger.error(e)
+	# 	except:
+	# 		e = sys.exc_info()
+	# 		app.logger.error(e)
 
-		s = models.Trip.objects(user=user)
+	# 	s = models.Trip.objects(user=user)
 			
-		return redirect('/home')
+	# 	return redirect('/home')
 
-	else:
-		templateData = {
-			'allTrip' : models.Trip.objects(user=current_user.id),
-			'current_user' : current_user,
-			'form' : TripForm,
-			'formType' : 'New'
-		}
+	# else:
+	# 	templateData = {
+	# 		'allTrip' : models.Trip.objects(user=current_user.id),
+	# 		'current_user' : current_user,
+	# 		'form' : TripForm,
+	# 		'formType' : 'New'
+	# 	}
 
-		return render_template('home.html', **templateData)
+	# 	return render_template('home.html', **templateData)
 	
 
 
@@ -172,7 +209,7 @@ def create():
 			e = sys.exc_info()
 			app.logger.error(e)
 			
-		return redirect('/newtrip')
+		return redirect('/create')
 
 	else:
 		templateData = {
