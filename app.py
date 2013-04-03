@@ -104,7 +104,8 @@ def login():
 
 
 # this is our main user page
-@app.route('/home') # display all the post. we may not need it
+@app.route('/home', methods=['GET','POST']) # display all the post. we may not need it
+@login_required
 def home():
 
 	TripForm = models.trip_form(request.form)
