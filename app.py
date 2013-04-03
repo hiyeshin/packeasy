@@ -172,7 +172,7 @@ def create():
 			e = sys.exc_info()
 			app.logger.error(e)
 			
-		return redirect('/create')
+		return redirect('/newtrip')
 
 	else:
 		templateData = {
