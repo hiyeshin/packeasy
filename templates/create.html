@@ -65,10 +65,14 @@
 				<br>
 				<input type = "submit" value = "Save Your Travel">
 			</form>
+			</div>
 
-			</div><!--trip_schedule-->
-			<br>
-			<!-- <div class="column span6">
+			<br />
+			
+			<!--trip_schedule-->
+			<!-- <br>
+
+			<div class="column span6">
 				<h3>Edit Your Travel</h3>
 					{% for t in allTrip %}
 					<div class="">
@@ -80,8 +84,8 @@
 					</div>
 					<hr>
 				{% endfor %}
-			</div> -->
-
+			</div>
+ -->
 			<div class="packing_list">
 				<div class="packing_header">
 					<h2>Packing List</h2>
@@ -94,7 +98,7 @@
 					<div class="accordionContent">
 						<table border="1" cellpadding="0" cellspacing="0">
 							{% for t in allTrip %}
-								<tr onmouseover="ChangeColor(this, true);" onmouseout="ChangeColor(this, false);" onclick="DoNav('create_trip.html');">
+								<tr onmouseover="ChangeColor(this, true);" onmouseout="ChangeColor(this, false);" onclick="DoNav('/create');">
 								<td>{{ t.startdate }} to {{ t.enddate }}</td>
 								<td>{{ t.location }}</td>
 								<td>{{ t.listname }}</td>
@@ -121,9 +125,9 @@
 				<br>
 				<br>
 				<a href="/newtrip">
-				<button type="button">
+				<!-- <button type="button">
 					Save
-				</button> </a>
+				</button> </a> -->
 
 			</div><!--packing_list-->
 		</div><!--page-->
@@ -133,4 +137,19 @@
 
 
 {% block styles %}{% endblock %}
-{% block scripts %}{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+			function ChangeColor(tableRow, highLight) {
+				if (highLight) {
+					tableRow.style.backgroundColor = '#dcfac9';
+				} else {
+					tableRow.style.backgroundColor = 'white';
+				}
+			}
+
+			function DoNav(theUrl) {
+				document.location.href = theUrl;
+			}
+		</script>
+
+{% endblock %}

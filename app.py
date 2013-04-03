@@ -5,18 +5,9 @@ from unidecode import unidecode
 
 from flask import Flask, session, request, url_for, escape, render_template, json, jsonify, flash, redirect, abort
 # session is just a dictionary and flask converts it to cookie
-
-# import all of mongoengine
-# from mongoengine import *
 import models
 
 from flask.ext.mongoengine import mongoengine
-
-# for json needs
-# import json
-# from flask import jsonify
-
-# below is for Flask-login
 
 from flask.ext.login import (LoginManager, current_user, login_required,
                             login_user, logout_user, UserMixin, AnonymousUser,
@@ -129,10 +120,6 @@ def home():
 
 
 	# return render_template('home.html', **templateData)
-
-
-
-
 
 
 	TripForm = models.trip_form(request.form)
