@@ -8,7 +8,6 @@ from flask import Flask, session, request, url_for, escape, render_template, jso
 
 # import all of mongoengine
 from mongoengine import *
-
 import models
 
 from flask.ext.mongoengine import mongoengine
@@ -35,9 +34,6 @@ app.secret_key = os.environ.get('SECRET_KEY')
 
 flask_bcrypt = Bcrypt(app)
 
-#   uses .env file to get connection string
-#   using a remote db get connection string from heroku config
-# 	using a local mongodb put this in .env
 #   MONGOLAB_URI=mongodb://localhost:27017/dwdfall2012
 mongoengine.connect('mydata', host=os.environ.get('MONGOLAB_URI'))
 
@@ -89,7 +85,7 @@ def login():
 
 			if login_user(user, remember=remember):
 				flash("Logged in!")
-				return redirect('/users/<username>')
+				return redirect('/home')
 			else:
 
 				flash("unable to log you in","login")
@@ -108,8 +104,8 @@ def login():
 
 
 # this is our main user page
-@app.route('/users/<username>') # display all the post. we may not need it
-def user(username):
+@app.route('/home') # display all the post. we may not need it
+def home():
 
 	TripForm = models.trip_form(request.form)
 
@@ -135,7 +131,7 @@ def user(username):
 
 		s = models.Trip.objects(user=user)
 			
-		return redirect('/create')
+		return redirect('/home')
 
 	else:
 		templateData = {
@@ -145,7 +141,7 @@ def user(username):
 			'formType' : 'New'
 		}
 
-	return render_template('home.html', **templateData)
+		return render_template('home.html', **templateData)
 	
 
 
@@ -156,7 +152,7 @@ def create():
 
 	TripForm = models.trip_form(request.form)
 
-	if request.method=="POST" and tripForm.validate():
+	if request.method=="POST" and TripForm.validate():
 		app.logger.debug(request.form)
 		
 		newTrip  = models.Trip()
@@ -175,7 +171,7 @@ def create():
 			e = sys.exc_info()
 			app.logger.error(e)
 			
-		return redirect('/newtrip')
+		return redirect('/create')
 
 	else:
 		templateData = {
@@ -183,8 +179,7 @@ def create():
 			'current_user' : current_user,
 			'form' : TripForm,
 			'formType' : 'New'
-		}
-	
+		}	
 
 	return render_template('create.html', **templateData)	
 
@@ -211,7 +206,7 @@ def newtrip():
 			e = sys.exc_info()
 			app.logger.error(e)
 			
-		return redirect('/user/<username>')
+		return redirect('newtrip')
 
 	else:
 		templateData = {
@@ -220,29 +215,8 @@ def newtrip():
 			'form' : ItemsForm,
 			'formType' : 'New'
 		}
-	
-
 	return render_template('new_trip.html', **templateData)
 	
-
-
-	# if request.method == "POST" and trip_form.validate():
-	# 	trip = models.Trip()
-	# 	trip.date = request.form.get('date','anonymous')
-	# 	trip.tripname = request.form.get('tripname','name your trip')
-	# 	trip.slug = slugify(trip.tripname + " " + trip.listname)
-	# 	trip.listname = request.form.get('listname','name your list')
-	# 	trip.item = request.form.get('item','shampoo')
-	# 	trip.quantity = request.form.get('quantity','3')
-	# 	trip.reminder = request.form.get('reminder','on')
-
-	# 	trip.save()
-
-	# return redirect('/%s' % idea.slug)
-
-
-	# return render_template('user_content.html', **templateData)
-
 
 @app.route("/register", methods=['GET','POST'])
 def register():
@@ -295,58 +269,7 @@ def register():
 	
 	return render_template("/auth/register.html", **templateData)
 
-
-		
-# @app.route('/admin/<content_id>', methods=['GET','POST'])
-# @login_required
-# def admin_edit_post(content_id):
-
-# 	# get the content requested
-# 	contentData = models.Content.objects.get(id=content_id)
-
-# 	# if contentData exists AND is owned by current_user then continue
-# 	if contentData and contentData.user.id == current_user.id:
-
-# 		# create the content form, populate with contentData
-# 		contentForm = models.content_form(request.form, obj=contentData)
-
-# 		if request.method=="POST" and contentForm.validate():
-# 			app.logger.debug(request.form)
-			
-# 			contentData.title = request.form.get('title')
-# 			contentData.content = request.form.get('content')
-
-			
-# 			try:
-# 				contentData.save()
-
-# 			except:
-# 				e = sys.exc_info()
-# 				app.logger.error(e)
-			
-# 			flash("Post was updated successfully.")
-# 			return redirect('/admin/%s' % contentData.id)
-
-# 		else:
-# 			templateData = {
-# 				'allContent' : models.Content.objects(user=current_user.id),
-# 				'current_user' : current_user,
-# 				'form' : contentForm,
-# 				'formType' : 'Update'
-# 			}
-		
-# 		return render_template('admin.html', **templateData)
-
-# 	# current user does not own requested content
-# 	elif contentData.user.id != current_user.id:
- 
-# 		flash("Log in to edit this content.","login")
-# 		return redirect("/")
-# 	else:
-
-# 		abort(404)
 	
-
 @app.route("/reauth", methods=["GET", "POST"])
 @login_required
 def reauth():

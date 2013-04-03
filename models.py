@@ -28,56 +28,25 @@ class SignupForm(user_form):
 class LoginForm(user_form):
 	password = PasswordField('Password',validators=[validators.Required()])
 
-########### user login form is over ############
-## but what is content form then?
-
-# class Content(mongoengine.Document):
-#     user = mongoengine.ReferenceField('User', dbref=True) # ^^^ points to User model ^^^
-#     title = mongoengine.StringField(max_length="100",required=True)
-#     content = mongoengine.StringField(required=True)
-#     timestamp = mongoengine.DateTimeField(default=datetime.now())
-
-#     @mongoengine.queryset_manager
-#     def objects(doc_cls, queryset):
-#      return queryset.order_by('-timestamp')
-
-# # content form
-# content_form = model_form(Content)
-
-
 #############################################
 # login info is done ########################
 #############################################
-
-# our demo model from week 5 in class
-# class Log(Document):
-# 	email = StringField()
-# 	password = StringField()
-# 	timestamp = DateTimeField(default=datetime.now())
-
-
-# class Comment(EmbeddedDocument):
-# 	name = StringField()
-# 	comment = StringField()
-# 	timestamp = DateTimeField(default=datetime.now())
-
 	
 class Trip(mongoengine.Document):
 	user = mongoengine.ReferenceField('User', dbref = True)
-	startdate = mongoengine.DateTimeField(required=True, verbose_name="start date")
-	enddate = mongoengine.DateTimeField(required=True, verbose_name="end date")
+	startdate = mongoengine.StringField(required=True, verbose_name="start date")
+	enddate = mongoengine.StringField(required=True, verbose_name="end date")
 	location = mongoengine.StringField(required = True)
 	reminder = mongoengine.StringField(required = True)
 	tripname = mongoengine.StringField(max_length=120, required=True)
-	timestamp = mongoengine.DateTimeField(default=datetime.now())
+	timestamp = mongoengine.StringField(default=datetime.now())
 # Create a Validation Form from the Idea model
 trip_form = model_form(Trip)
 
 
 class Items(Document):
-	listname =  StringField(StringField(max_length=30))
+	listname = StringField(StringField(max_length=30))
 	item = StringField(StringField(max_length=30))
 	quantity = StringField(required=True)
-
 
 items_form = model_form(Items)
