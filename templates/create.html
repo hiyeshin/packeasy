@@ -9,7 +9,7 @@
 
 		<div class="header">
 			<!--<a class="logo" href="home.html"><img src="images/packeasy.png" alt="Packeasy" /></a>-->
-			<a href="home.html"><h1>Packeasy</h1></a>
+			<a href="/home"><h1>Packeasy</h1></a>
 		</div><!--header-->
 
 		<div class="main">
@@ -20,7 +20,29 @@
 			<div class="trip_schedule">
 				<div class="schedule_header">
 					<h2>{{ formType }}Schedule</h2>
+					{# display any Flash/Session messages #}
+					{% with messages = get_flashed_messages() %}
+          			{% if messages %}
+            			{% for message in messages %}
+            			  <p><span class="alert alert-success">{{ message }}</span></p>
+            			{% endfor %}
+    			      {% endif %}
+    			    {% endwith %}
+    			    {# end of Flash/Sesssion messages #}
+
+    			    {# display form errors #}
+					{% if form.errors %}
+				    <ul class="errors">
+				        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+				            {% for error in field_errors %}
+				                <li class="alert">{{ form[field_name].label }}: {{ error }}</li>
+				            {% endfor %}
+				        {% endfor %}
+				    </ul>
+					{% endif %}
+
 				</div>
+
 
 				<form method = "POST">
 
@@ -41,22 +63,25 @@
 				{{ form.reminder.label }}
 				{{ form.reminder }}
 
-				<!-- START
-				<input type = "text" id = "gmail_id" value = "Select Calender" />
 				<br>
-				END
-				<input type = "text" id = "gmail_id" value = "Select Calender" />
-				<br>
-				LOCATION
-				<input type = "text" id = "gmail_id" value = "Where are you going?" />
-				<br>
-				REMINDER <a href="" class="on">On</a><a href="" class="off">Off</a>
-				<br> -->
-				<br>
-				<input type = "submit" value = "Save Post">
+				<input type = "submit" value = "Save Your Travel">
 				</form>
 
 			</div><!--trip_schedule-->
+			<br>
+			<div class="column span6">
+				<h3>Edit Your Travel</h3>
+					{% for t in allTrip %}
+					<div class="">
+						<a href="/create/{{t.tripname}}">{{ t.tripname }}</a>
+						<br>
+						{{ t.tripname }}
+						<br>
+						by: <a href="/create/{{ t.user.username }}">{{ t.user.username }}</a>
+					</div>
+					<hr>
+				{% endfor %}
+			</div>
 
 			<div class="packing_list">
 				<div class="packing_header">

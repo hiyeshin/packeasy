@@ -34,11 +34,11 @@ class LoginForm(user_form):
 	
 class Trip(mongoengine.Document):
 	user = mongoengine.ReferenceField('User', dbref = True)
-	startdate = mongoengine.StringField(required=True, verbose_name="start date")
-	enddate = mongoengine.StringField(required=True, verbose_name="end date")
-	location = mongoengine.StringField(required = True)
-	reminder = mongoengine.StringField(required = True)
-	tripname = mongoengine.StringField(max_length=120, required=True)
+	startdate = mongoengine.StringField(required = False, verbose_name="start date")
+	enddate = mongoengine.StringField(required = False, verbose_name="end date")
+	location = mongoengine.StringField(required = False)
+	reminder = mongoengine.StringField(required = False)
+	tripname = mongoengine.StringField(max_length=120, required = False)
 	timestamp = mongoengine.StringField(default=datetime.now())
 
 	@mongoengine.queryset_manager
